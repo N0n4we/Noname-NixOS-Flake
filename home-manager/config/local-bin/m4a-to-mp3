@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+DIR="${1:-.}"
+shopt -s nullglob
+for f in "$DIR"/*.m4a; do
+  [ -f "$f" ] || continue
+
+  out="${f%.m4a}.mp3"
+  echo "Processing: $f → $out"
+  if ffmpeg -loglevel error -i "$f" -codec:a libmp3lame -q:a 2 "$out"; then
+    rm -f "$f"
+    echo "Deleted source: $f"
+  else
+    echo "Conversion failed for: $f" >&2
+  fi
+done
+
+echo "Done."

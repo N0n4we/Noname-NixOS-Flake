@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd ~/Flake
+
+if [ -n "$(jj diff --color=never)" ]; then
+        jj new
+fi
+
+nix flake update
+
+if [ -n "$(jj diff --color=never)" ]; then
+        jj commit -m "update flake.lock"
+fi

@@ -1,0 +1,223 @@
+### 变量定义
+set $mod Mod4
+set $alt Mod1
+set $term alacritty msg create-window
+
+### 输入设置 (Input)
+input type:keyboard {
+    xkb_layout us
+    repeat_delay 300
+    repeat_rate 50
+}
+
+input type:touchpad {
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    scroll_factor 0.8
+}
+
+### 输出设置 (Output)
+output DSI-1 {
+    scale 1.5
+    mode 1920x1200
+    pos 0 0
+    transform 90
+}
+
+output HDMI-A-1 {
+    scale 1
+    pos 0 800
+}
+
+output * {
+    bg #000000 solid_color
+    # layout_type vertical
+}
+
+### 外观与窗口规则
+gaps inner 8
+gaps outer 0
+
+# 边框设置
+default_border pixel 4
+default_floating_border pixel 4
+
+# 颜色设置
+# class                 border    backgr.   text      indicator   child_border
+client.focused          #6b6566   #6b6566   #ffffff   #6b6566     #6b6566
+client.focused_inactive #1b1b1b   #1b1b1b   #e0e0e0   #2e9ef4     #595959
+client.unfocused        #00000000 #00000000 #00000000 #00000000   #00000000
+
+### 启动程序 (Startup)
+exec wl-paste --type text --watch cliphist store
+exec wl-paste --type image --watch cliphist store
+exec swww-daemon --format xrgb --no-cache
+exec alacritty --daemon
+exec_always "sh -c 'sleep 2 && swww img ~/.config/background'"
+exec mako
+exec wlsunset -s 00:00 -t 2500
+exec fcitx5 -d --replace
+exec blueman-applet
+exec gajim
+exec dbus-update-activation-environment --systemd --all
+exec nautilus --gapplication-service
+exec scrollmsg set_mode v nocenter_horiz nocenter_vert noreorder_auto
+
+layout_default_width 0.6
+layout_default_height 1.0
+layout_widths [0.2 0.4 0.6 0.8 1.0]
+layout_heights [0.2 0.4 0.6 0.8 1.0]
+
+for_window [app_id="pqiv"] floating enable
+for_window [app_id="mpv"] floating enable
+
+floating_modifier $mod normal
+mouse_warping container
+focus_follows_mouse full
+focus_wrapping no
+
+seat * {
+    hide_cursor 5000
+}
+
+# 动画
+animations {
+    enabled yes
+    default yes 250 var 3 [ 0.1 1 0.1 1 ]
+    window_open yes 250 var 3 [ 0.05 0.9 0.1 1.05 ]
+    window_move yes 250 var 3 [ 0.05 0.9 0.1 1.05 ]
+    window_size yes 250 var 3 [ 0.05 0.9 0.1 1.05 ]
+    workspace_switch yes 550 var simple [ 0.22 1 0.36 1 ]
+    window_fullscreen yes 450 var simple [ 0.2 1 0.2 1 ]
+    window_move_float yes 250 var 3 [ 0.05 0.9 0.1 1.05 ]
+    overview yes 250 var 3 [ 0.1 1 0.1 1 ]
+}
+
+### 按键绑定 (Keybindings)
+
+# --- 基本操作 ---
+bindsym $mod+q kill
+bindsym $mod+space floating toggle
+bindsym $mod+f toggle_size this 1.0 1.0
+bindsym $mod+Shift+f fullscreen
+
+# --- 应用启动 ---
+bindsym $mod+t exec $term -e nu -i
+bindsym $mod+d exec rofi -show drun -modi drun,filebrowser,run,window
+bindsym $mod+b exec xdg-open "https://"
+bindsym $mod+m exec $term -e btop
+bindsym $mod+y exec $term -e nu -i -e y
+bindsym $mod+a exec $term -e sh -ic "aichat -s -r brief"
+bindsym $mod+x exec notify-send "$(~/.local/bin/status)"
+
+# --- 脚本执行 ---
+bindsym $mod+w exec ~/.config/scripts/WallpaperSelect.sh
+bindsym $mod+s exec ~/.config/scripts/NixSearch.sh
+bindsym $mod+c exec ~/.config/scripts/RofiCalc.sh
+bindsym $mod+v exec ~/.config/scripts/ClipManager.sh
+bindsym $mod+e exec ~/.config/scripts/RofiEmoji.sh
+
+bindsym $mod+Shift+e exec grim -g "$(slurp)" - | tesseract stdin stdout -l eng | wl-copy
+bindsym $mod+Shift+c exec grim -g "$(slurp)" - | tesseract stdin stdout -l chi_sim | tr -d '[:space:]' | wl-copy
+bindsym $mod+Shift+d exec grim -g "$(slurp)" - | tesseract stdin stdout -l jpn | tr -d '[:space:]' | wl-copy
+
+# --- 焦点移动 (Focus) ---
+bindsym $mod+h focus left
+bindsym $mod+l focus right
+bindsym $mod+k focus up
+bindsym $mod+j focus down
+
+bindsym $mod+Left focus left
+bindsym $mod+Right focus right
+bindsym $mod+Up focus up
+bindsym $mod+Down focus down
+
+bindsym $mod+z focus mode_toggle
+
+bindsym --whole-window $mod+$alt+button4 focus left
+bindsym --whole-window $mod+$alt+button5 focus right
+bindsym --whole-window $mod+button4 focus up
+bindsym --whole-window $mod+button5 focus down
+
+# --- 窗口移动 (Move) ---
+bindsym $mod+Ctrl+h move left nomode
+bindsym $mod+Ctrl+l move right nomode
+bindsym $mod+Ctrl+k move up nomode
+bindsym $mod+Ctrl+j move down nomode
+
+bindsym $mod+Ctrl+y move left 200px nomode
+bindsym $mod+Ctrl+o move right 200px nomode
+bindsym $mod+Ctrl+i move up 200px nomode
+bindsym $mod+Ctrl+u move down 200px nomode
+
+bindsym $mod+Ctrl+Left move left nomode
+bindsym $mod+Ctrl+Right move right nomode
+bindsym $mod+Ctrl+Up move up nomode
+bindsym $mod+Ctrl+Down move down nomode
+
+bindsym $mod+i set_mode v nocenter_horiz nocenter_vert noreorder_auto
+bindsym $mod+o set_mode h nocenter_horiz nocenter_vert noreorder_auto
+
+# --- 调整大小 (Resize) ---
+bindsym $mod+Shift+h cycle_size h prev
+bindsym $mod+Shift+l cycle_size h next
+bindsym $mod+Shift+k cycle_size v prev
+bindsym $mod+Shift+j cycle_size v next
+
+bindsym $mod+Shift+Left cycle_size h prev
+bindsym $mod+Shift+Right cycle_size h next
+bindsym $mod+Shift+Up cycle_size v prev
+bindsym $mod+Shift+Down cycle_size v next
+
+bindsym $mod+Shift+y resize shrink width 200px
+bindsym $mod+Shift+o resize grow width 200px
+bindsym $mod+Shift+i resize shrink height 200px
+bindsym $mod+Shift+u resize grow height 200px
+
+bindsym $mod+Tab scale_workspace incr -0.1
+bindsym $mod+grave scale_workspace incr +0.1
+
+bindsym $mod+minus scale_content incr -0.1
+bindsym $mod+equal scale_content incr +0.1
+
+# --- 截图 & 录屏 (Screenshot) ---
+bindsym $mod+Shift+w exec ~/.config/scripts/ScreenShot.sh --all
+bindsym $mod+Shift+s exec ~/.config/scripts/ScreenShot.sh --area
+bindsym $mod+Shift+x exec ~/.config/scripts/ScreenShot.sh --edit
+bindsym $mod+Shift+a exec ~/.config/scripts/ScreenShot.sh --show
+bindsym $mod+Ctrl+w exec ~/.config/scripts/ScreenRecord.sh --all
+bindsym $mod+Ctrl+s exec ~/.config/scripts/ScreenRecord.sh --area
+bindsym $mod+Ctrl+x exec ~/.config/scripts/ScreenRecord.sh --cut
+bindsym $mod+Ctrl+a exec ~/.config/scripts/AudioRecord.sh --cut
+
+# --- 系统控制 (System) ---
+bindsym --locked XF86AudioRaiseVolume exec ~/.config/scripts/Volume.sh --inc
+bindsym --locked XF86AudioLowerVolume exec ~/.config/scripts/Volume.sh --dec
+bindsym --locked XF86AudioMute exec ~/.config/scripts/Volume.sh --toggle
+bindsym --locked XF86AudioMicMute exec ~/.config/scripts/Volume.sh --toggle-mic
+
+# 亮度
+bindsym XF86MonBrightnessUp exec ~/.config/scripts/Brightness.sh --inc
+bindsym XF86MonBrightnessDown exec ~/.config/scripts/Brightness.sh --dec
+bindsym XF86KbdBrightnessUp exec ~/.config/scripts/BrightnessKbd.sh --inc
+bindsym XF86KbdBrightnessDown exec ~/.config/scripts/BrightnessKbd.sh --dec
+
+# 媒体控制
+bindsym XF86AudioPlay exec ~/.config/scripts/MediaCtrl.sh --pause
+bindsym XF86AudioPause exec ~/.config/scripts/MediaCtrl.sh --pause
+bindsym XF86AudioNext exec ~/.config/scripts/MediaCtrl.sh --nxt
+bindsym XF86AudioPrev exec ~/.config/scripts/MediaCtrl.sh --prv
+bindsym XF86AudioStop exec ~/.config/scripts/MediaCtrl.sh --stop
+
+# 其他
+bindsym XF86Sleep exec systemctl suspend
+bindsym XF86Rfkill exec ~/.config/scripts/AirplaneMode.sh
+bindsym Ctrl+$alt+l exec ~/.config/scripts/LockScreen.sh
+
+# --- 工作区 (Workspaces) ---
+bindsym $mod+1 workspace prev
+bindsym $mod+2 workspace next
+bindsym --no-repeat $mod+3 jump workspaces
+bindsym $mod+Ctrl+1 move container to workspace prev; workspace prev
+bindsym $mod+Ctrl+2 move container to workspace next; workspace next

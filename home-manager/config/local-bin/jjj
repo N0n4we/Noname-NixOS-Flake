@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# 使用第一个参数作为目标路径，默认为当前目录 "."
+target_dir="${1:-.}"
+
+for dir in "$target_dir"/*; do
+    if [ -d "$dir" ] && [ -d "$dir/.jj" ]; then
+        # 逻辑：
+        # 1. @ ~ empty() -> @ 不为空
+        # 2. @- ~ remote_bookmarks() -> @- 未同步
+        if [[ -n $(cd "$dir" && jj log -r '(@ ~ empty()) | (@- ~ remote_bookmarks())' --no-graph 2>/dev/null) ]]; then
+            clean_name=$(basename "$dir")
+            echo -e "\n\033[1;33m=== $clean_name ===\033[0m"
+            (cd "$dir" && jj st)
+        fi
+    fi
+done
+echo ""
