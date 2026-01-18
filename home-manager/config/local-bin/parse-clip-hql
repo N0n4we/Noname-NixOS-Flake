@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Create a temporary file to store clipboard content
+temp_file=$(mktemp)
+
+# Ensure the temporary file is removed when the script exits
+trap 'rm -f "$temp_file"' EXIT
+
+# Get SQL from clipboard
+wl-paste > "$temp_file"
+
+# Pre-process the SQL:
+# 1. Comment out any 'set' commands (case-insensitive).
+# 2. Remove all backticks (`).
+sed -i -E 's/^(set (hive|mapred|spark).*)/-- \1/I; s/`//g' "$temp_file"
+
+# Generate and store lineage analysis in a final output file
+{
+    echo "--- Table Lineage ---"
+    sqllineage -d hive -l table -f "$temp_file"
+    echo -e "\n--- Column Lineage ---"
+    sqllineage -d hive -l column -f "$temp_file"
+} > lineage.txt

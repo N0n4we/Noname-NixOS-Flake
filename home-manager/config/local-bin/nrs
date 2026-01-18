@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# 进入目录，失败则退出
+cd ~/Flake || { echo "无法进入目录 ~/Flake"; exit 1; }
+
+MODE="offline"
+DO_REBOOT=false
+
+# 使用 getopts 解析，原生支持 -ro, -rt 这种组合
+while getopts ":rto" opt; do
+    case $opt in
+        r) DO_REBOOT=true ;;
+        t) MODE="tuna" ;;
+        o) MODE="online" ;;
+        *) echo "Usage: $0 [-r] [-t|-o]"; exit 1 ;;
+    esac
+done
+
+# 使用数组构建基础命令，比字符串拼接更安全
+CMD=(sudo nixos-rebuild switch --flake .#nixos)
+
+case $MODE in
+    offline)
+        echo "Building offline..."
+        "${CMD[@]}" --offline --no-update-lock-file --option tarball-ttl 31536000
+        ;;
+    tuna)
+        echo "Building with Tuna mirror..."
+        "${CMD[@]}" --option substituters "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+        ;;
+    online)
+        echo "Building online..."
+        "${CMD[@]}"
+        ;;
+esac
+
+if [[ "$DO_REBOOT" == "true" ]]; then
+    echo "Build success. Rebooting..."
+    reboot
+fi

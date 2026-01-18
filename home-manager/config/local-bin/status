@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# 时间 (Time -> )
+echo " $(date '+%Y-%m-%d %H:%M:%S')"
+
+# 电量 (Power -> 󱧦)
+bat_path=$(upower -e | grep 'BAT' | head -1)
+if [ -z "$bat_path" ]; then
+    echo "󱧦 N/A"
+else
+    upower_output=$(upower -i "$bat_path" 2>/dev/null)
+    power=$(echo "$upower_output" | grep -E "percentage" | grep -oE "[0-9]+")
+    state=$(echo "$upower_output" | grep -E "^\s*state:" | awk '{print $2}')
+
+    if [ -z "$power" ]; then
+        echo "󱧦 N/A"
+    else
+        power_string="${power}%"
+        if [ "$state" = "charging" ]; then
+            power_string+=" (charging)"
+        fi
+        echo "󱧦 $power_string"
+    fi
+fi
+
+# 音量 (Volume -> 󱄠)
+volume_raw=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ 2>/dev/null | grep -oE "[0-9]\.[0-9]+")
+if [ -n "$volume_raw" ]; then
+    volume=$(awk -v v="$volume_raw" 'BEGIN {print int(v*100)}')
+    echo "󱄠 ${volume}%"
+else
+    echo "󱄠 N/A"
+fi
+
+# 亮度 (Brightness -> 󰃟)
+brightness=$(brightnessctl i 2>/dev/null | grep "Current" | grep -oE "[0-9]+%" | head -1)
+[ -z "$brightness" ] && brightness="N/A"
+echo "󰃟 $brightness"
+
+# 蓝牙设备 (Bluetooth -> )
+if command -v bluetoothctl &>/dev/null; then
+    bluetooth_output=""
+    while IFS= read -r line; do
+        if [[ $line == Device\ * ]]; then
+            device=$(echo "$line" | cut -d' ' -f3-)
+            [ -n "$device" ] && bluetooth_output="$bluetooth_output \"$device\""
+        fi
+    done < <(bluetoothctl devices Connected 2>/dev/null)
+
+    if [ -z "$bluetooth_output" ]; then
+        echo " no devices"
+    else
+        echo "$bluetooth_output"
+    fi
+else
+    echo " N/A"
+fi
+
+# 网络 (Network -> 󰖩)
+network=""
+if command -v iwgetid &>/dev/null; then
+    network=$(iwgetid -r 2>/dev/null)
+fi
+if [ -z "$network" ] && command -v nmcli &>/dev/null; then
+    network=$(nmcli -t -f active,ssid dev wifi 2>/dev/null | grep '^yes' | cut -d':' -f2)
+fi
+if [ -z "$network" ]; then
+    echo "󰖩 disconnected"
+else
+    echo "󰖩 \"$network\""
+fi

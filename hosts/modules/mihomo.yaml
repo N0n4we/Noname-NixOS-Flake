@@ -1,0 +1,182 @@
+mode: rule
+mixed-port: 7897
+allow-lan: false
+log-level: info
+ipv6: false
+external-controller: 127.0.0.1:9090
+secret: ""
+unified-delay: true
+external-controller-unix: /run/user/1000/clash-verge-rev/verge-mihomo.sock
+geox-url:
+  geoip: "https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat"
+  geosite: "https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat"
+  mmdb: "https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/GeoLite2-Country.mmdb"
+  asn: "https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/GeoLite2-ASN.mmdb"
+profile:
+  tracing: true
+  store-selected: true
+experimental:
+  sniff-tls-sni: true
+tun:
+  auto-detect-interface: true
+  auto-route: true
+  device: Mihomo
+  dns-hijack:
+  - any:53
+  - tcp://any:53
+  mtu: 1500
+  stack: gvisor
+  strict-route: false
+  enable: true
+dns:
+  use-hosts: true
+  use-system-hosts: true
+  hosts:
+    'dns.google': [ 8.8.8.8, 8.8.4.4 ]
+    'cloudflare-dns.com': [ 1.1.1.1, 1.0.0.1 ]
+    'dns.quad9.net': [ 9.9.9.9, 149.112.112.112 ]
+    'doh.opendns.com': [ 208.67.222.222, 208.67.220.220 ]
+    'dns.adguard-dns.com': [ 94.140.14.14, 94.140.15.15 ]
+    'doh.pub': [ 119.29.29.29, 120.53.53.53 ]
+    'dns.alidns.com': [ 223.5.5.5, 223.6.6.6 ]
+  default-nameserver:
+  - tls://8.8.8.8
+  - tls://1.1.1.1
+  nameserver:
+  - https://dns.google/dns-query
+  - https://cloudflare-dns.com/dns-query
+  fallback:
+  - https://dns.quad9.net/dns-query
+  - https://doh.opendns.com/dns-query
+  - https://dns.adguard-dns.com/dns-query
+  fallback-filter:
+    ipcidr:
+    - 240.0.0.0/4
+    - 0.0.0.0/32
+  direct-nameserver:
+  - https://doh.pub/dns-query
+  - https://dns.alidns.com/dns-query
+  direct-nameserver-follow-policy: false
+  proxy-server-nameserver:
+  - https://doh.pub/dns-query
+  - https://dns.alidns.com/dns-query
+  enable: true
+  enhanced-mode: fake-ip
+  fake-ip-filter:
+  - '*.lan'
+  - '*.local'
+  - '*.arpa'
+  - time.*.com
+  - ntp.*.com
+  - time.*.com
+  - +.market.xiaomi.com
+  - localhost.ptlogin2.qq.com
+  - '*.msftncsi.com'
+  - www.msftconnecttest.com
+  fake-ip-filter-mode: blacklist
+  fake-ip-range: 198.18.0.1/16
+  ipv6: false
+  listen: 127.0.0.1:53
+  prefer-h3: false
+  respect-rules: false
+external-controller-cors:
+  allow-private-network: true
+  allow-origins:
+  - '*'
+clash-for-android:
+  append-system-dns: false
+proxy-providers:
+  tag:
+    type: file
+    path: /var/lib/private/mihomo/providers/tag.yaml
+    interval: 600
+    health-check:
+      enable: true
+      interval: 1200
+      url: https://www.gstatic.com/generate_204
+      lazy: true
+  doggy:
+    type: file
+    path: /var/lib/private/mihomo/providers/doggy.yaml
+    interval: 600
+    health-check:
+      enable: true
+      interval: 1200
+      url: https://www.gstatic.com/generate_204
+      lazy: true
+proxy-groups:
+  - name: SELECT
+    type: select
+    use:
+      - tag
+      - doggy
+    proxies:
+      - TAG-REGION
+      - TUIC
+      - TROJAN
+      - ANYTLS
+      - DIRECT
+  - name: TAG-REGION
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    lazy: true
+    use:
+      - tag
+    filter: "台湾|乌克兰|以色列|日本"
+  - name: TUIC
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    lazy: true
+    use:
+      - doggy
+    filter: "Tuic"
+  - name: TROJAN
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    lazy: true
+    use:
+      - doggy
+    filter: "TCP"
+  - name: ANYTLS
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    lazy: true
+    use:
+      - doggy
+    filter: "AnyTLS"
+rules:
+  - GEOSITE,category-ads-all,REJECT
+
+  - DOMAIN,browserleaks.com,SELECT
+
+  - GEOSITE,cn,DIRECT
+  - GEOSITE,private,DIRECT
+  - GEOSITE,steam@cn,DIRECT
+  - GEOSITE,category-games@cn,DIRECT
+
+  - DOMAIN,copypaste.me,DIRECT
+  - DOMAIN,mirrors.tuna.tsinghua.edu.cn,DIRECT
+  - DOMAIN,feishu.cn,DIRECT
+  - DOMAIN,feishucdn.com,DIRECT
+  - DOMAIN,dns.alidns.com,DIRECT
+  - DOMAIN,doh.pub,DIRECT
+
+  - DOMAIN,eaHh9lW.doggygosubs.com:8443,DIRECT
+  - DOMAIN,rama991.siamparagon.org,DIRECT
+
+  - GEOSITE,geolocation-!cn,SELECT
+  - GEOSITE,google,SELECT
+  - GEOSITE,youtube,SELECT
+  - GEOSITE,telegram,SELECT
+  - GEOSITE,netflix,SELECT
+  - GEOSITE,github,SELECT
+
+  - GEOIP,private,DIRECT,no-resolve
+  - GEOIP,telegram,SELECT
+  - GEOIP,cn,DIRECT
+
+  - MATCH,SELECT
