@@ -20,6 +20,9 @@ done
 # 使用数组构建基础命令，比字符串拼接更安全
 CMD=(sudo nixos-rebuild switch --flake .#nixos)
 
+# Let nix aware of secret.nix
+git add -N -f ./hosts/modules/secret.nix
+
 case $MODE in
     offline)
         echo "Building offline..."
