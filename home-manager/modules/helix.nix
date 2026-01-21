@@ -41,6 +41,14 @@
           feature_paths = true;
         };
       };
+      language-server.jdtls = {
+        command = "jdtls";
+        timeout = 300;
+        config = {
+          java.maxConcurrentBuilds = 4;
+        };
+        args = [ "--jvm-arg=-Xms2G" "--jvm-arg=-Xmx8G" ];
+      };
       language = [
         {
           name = "text";
