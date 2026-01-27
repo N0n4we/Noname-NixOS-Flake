@@ -1,7 +1,20 @@
+{ pkgs, ... }:
 {
   programs.helix = {
     enable = true;
+    package = pkgs.evil-helix;
     settings = {
+      keys.normal = {
+        g = { e = "move_prev_word_end"; };
+        "A-s" = ":toggle-option soft-wrap.enable";
+        "A-t" = ":sh alacritty msg create-window --working-directory \"$(pwd)\"";
+        "C-r" = "redo";
+      };
+      keys.select = {
+        g = { e = "move_prev_word_end"; };
+        "A-s" = ":toggle-option soft-wrap.enable";
+        "A-t" = ":sh alacritty msg create-window --working-directory \"$(pwd)\"";
+      };
       editor = {
         line-number = "relative";
         auto-format = false;
@@ -23,6 +36,7 @@
       };
       editor.indent-guides = {
         render = true;
+        rainbow-option = "dim";
       };
       editor.smart-tab = {
         enable = false;
