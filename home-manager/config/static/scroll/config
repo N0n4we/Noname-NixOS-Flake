@@ -177,6 +177,7 @@ bindsym $mod+Shift+u resize grow height 200px
 
 bindsym $mod+Tab scale_workspace incr -0.1
 bindsym $mod+grave scale_workspace incr +0.1
+bindsym $mod+escape scale_workspace incr +0.1
 
 bindsym $mod+minus scale_content incr -0.1
 bindsym $mod+equal scale_content incr +0.1
@@ -218,6 +219,5 @@ bindsym Ctrl+$alt+l exec ~/.config/scripts/LockScreen.sh
 # --- 工作区 (Workspaces) ---
 bindsym $mod+1 workspace prev
 bindsym $mod+2 workspace next
-bindsym --no-repeat $mod+3 jump workspaces
 bindsym $mod+Ctrl+1 move container to workspace prev; workspace prev
 bindsym $mod+Ctrl+2 move container to workspace next; workspace next
