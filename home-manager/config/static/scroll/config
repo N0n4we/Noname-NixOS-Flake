@@ -97,7 +97,7 @@ animations {
 ### 按键绑定 (Keybindings)
 
 # --- 基本操作 ---
-bindsym $mod+q kill
+bindsym $mod+9 kill
 bindsym $mod+space floating toggle
 bindsym $mod+f toggle_size this 1.0 1.0
 bindsym $mod+Shift+f fullscreen
@@ -179,8 +179,8 @@ bindsym $mod+Tab scale_workspace incr -0.1
 bindsym $mod+grave scale_workspace incr +0.1
 bindsym $mod+escape scale_workspace incr +0.1
 
-bindsym $mod+minus scale_content incr -0.1
-bindsym $mod+equal scale_content incr +0.1
+bindsym $mod+1 scale_content incr -0.1
+bindsym $mod+2 scale_content incr +0.1
 
 # --- 截图 & 录屏 (Screenshot) ---
 bindsym $mod+Shift+w exec ~/.config/scripts/ScreenShot.sh --all
@@ -217,7 +217,5 @@ bindsym XF86Rfkill exec ~/.config/scripts/AirplaneMode.sh
 bindsym Ctrl+$alt+l exec ~/.config/scripts/LockScreen.sh
 
 # --- 工作区 (Workspaces) ---
-bindsym $mod+1 workspace prev
-bindsym $mod+2 workspace next
-bindsym $mod+Ctrl+1 move container to workspace prev; workspace prev
-bindsym $mod+Ctrl+2 move container to workspace next; workspace next
+bindsym $mod+q workspace next
+bindsym $mod+Ctrl+q move container to workspace next; workspace next
