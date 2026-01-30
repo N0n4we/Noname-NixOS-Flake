@@ -1,11 +1,11 @@
-model: openrouter:z-ai/glm-4.7-flash
+model: anthropic:claude-opus-4-5-20251101
 top_p: 0.95
 
 clients:
   - type: openai-compatible
     name: openrouter
     api_base: https://openrouter.ai/api/v1
-  - type: claude
+  - type: openai-compatible
     name: anthropic
     api_base: https://www.right.codes/claude-aws/v1
 
