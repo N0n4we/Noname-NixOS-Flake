@@ -157,6 +157,15 @@ in
         ];
       };
     };
+    theme = {
+      icon = {
+        globs = [];
+        dirs = [];
+        files = [];
+        exts = [];
+        conds = [];
+      };
+    };
   };
   programs.zoxide = {
     enable = true;
