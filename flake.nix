@@ -19,6 +19,9 @@
       url = "github:AsahiRocks/scroll-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+    };
   };
 
   outputs = {
@@ -28,6 +31,7 @@
     stylix,
     nix-index-database,
     scroll-flake,
+    nixvim,
     ...
   } @ inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -40,19 +44,17 @@
           home-manager = {
             useUserPackages = true;
             extraSpecialArgs = {inherit inputs;};
-            users.noname = import ./home-manager/noname.nix;
+            users.noname = {
+              imports = [
+                ./home-manager/noname.nix
+                nixvim.homeModules.nixvim
+              ];
+            };
           };
         }
         nix-index-database.nixosModules.default
         { programs.nix-index-database.comma.enable = true; }
-        inputs.scroll-flake.nixosModules.default
-      ];
-    };
-    homeConfigurations.noname = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      modules = [
-        stylix.homeModules.stylix  # many options can only be set in home-manager
-        ./home-manager/noname.nix
+        scroll-flake.nixosModules.default
       ];
     };
   };

@@ -19,6 +19,9 @@
       mako.enable = true;
       fcitx5.enable = true;
       nushell.enable = true;
+      nixvim.enable = true;
+      neovide.enable = true;
+      helix.enable = true;
     };
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/terracotta-dark.yaml";
