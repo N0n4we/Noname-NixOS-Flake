@@ -71,7 +71,6 @@ in
 
     # personal packages
     losslesscut-bin
-    inkscape-with-extensions  # svg editor
     glow
     wev
     termdown
@@ -84,7 +83,6 @@ in
     codegrab
     opencode
     yt-dlp
-    go
     sqlite
     duckdb
     delta
@@ -102,7 +100,6 @@ in
     wf-recorder
     jrnl
     slides
-    dasht
     linux-wallpaperengine
     sqlit-tui
     libreoffice-still
@@ -122,7 +119,6 @@ in
     vscode-css-languageserver
     superhtml
     nil
-    gopls
     prettier
     sqlfluff
   ];
