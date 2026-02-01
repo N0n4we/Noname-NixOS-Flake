@@ -3,4 +3,4 @@ set -euo pipefail
 
 filename=$(date +%Y%m%d).md
 touch "$filename"
-"$EDITOR" "$filename"
+$EDITOR "$filename"
