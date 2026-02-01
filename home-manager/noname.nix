@@ -33,22 +33,13 @@ in
       type = "Application";
       categories = [ "Utility" "AudioVideo" ];
     };
-    "helix-alacritty" = {
-      name = "Helix (Terminal)";
-      icon = "helix";
-      exec = "alacritty -e hx %F";
-      terminal = false;
-      type = "Application";
-      categories = [ "TextEditor" "Development" "Utility" ];
-      mimeType = [ "text/plain" ];
-    };
   };
   # system-wide /run/current-system/sw/share/applications/
   # user-wide /etc/profiles/per-user/noname/share/applications/
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "text/plain" = "helix-alacritty.desktop";
+      "text/plain" = "neovide.desktop";
       "image/*" = "pqiv.desktop";
       "video/*" = "mpv.desktop";
       "audio/*" = "mpv.desktop";
