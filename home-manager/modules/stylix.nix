@@ -22,6 +22,7 @@
       nixvim.enable = true;
       neovide.enable = true;
       helix.enable = true;
+      emacs.enable = true;
     };
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/terracotta-dark.yaml";
