@@ -19,15 +19,15 @@ input type:touchpad {
 
 ### 输出设置 (Output)
 output DSI-1 {
-    scale 1.5
+    scale 2.0
     mode 1920x1200
     pos 0 0
     transform 90
 }
 
 output HDMI-A-1 {
-    scale 1
-    pos 0 800
+    scale 1.6
+    pos 0 600
 }
 
 output * {
