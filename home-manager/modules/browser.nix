@@ -17,6 +17,15 @@
             box-shadow: none !important;
             text-shadow: none !important;
           }
+          #main-window {
+            min-width: 200px !important;
+          }
+          #urlbar-container,
+          #urlbar,
+          #search-container,
+          #nav-bar {
+            min-width: 1px !important;
+          }
         '';
       };
     };
