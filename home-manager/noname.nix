@@ -69,7 +69,6 @@ in
     baidupcs-go
     imagemagick
     glava
-    obsidian
     webcamoid
     codegrab
     opencode
