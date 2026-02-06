@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [ -n "${1:-}" ]; then
+  dir=$(dirname "$(realpath -m "$1")")
+  file=$(basename "$1")
+  alacritty msg create-window --working-directory "$dir" -e hx "$file"
+else
+  alacritty msg create-window -e hx "$@"
+fi

@@ -7,7 +7,7 @@
       keys.normal = {
         g = { e = "move_prev_word_end"; };
         "A-s" = ":toggle-option soft-wrap.enable";
-        "A-t" = ":sh alacritty msg create-window --working-directory \"$(pwd)\"";
+        "A-t" = ":sh alacritty msg create-window --working-directory $(pwd)";
         "C-r" = "redo";
         "C-e" = "scroll_down";
         "C-y" = "scroll_up";
@@ -15,7 +15,7 @@
       keys.select = {
         g = { e = "move_prev_word_end"; };
         "A-s" = ":toggle-option soft-wrap.enable";
-        "A-t" = ":sh alacritty msg create-window --working-directory \"$(pwd)\"";
+        "A-t" = ":sh alacritty msg create-window --working-directory $(pwd)";
         "C-e" = "scroll_down";
         "C-y" = "scroll_up";
       };
