@@ -94,23 +94,23 @@
         options.desc = "Open Yazi";
       }
 
-      # fzf-lua
+      # Telescope
       {
         mode = "n";
         key = "<leader>f";
-        action = "<cmd>FzfLua files<CR>";
+        action = "<cmd>Telescope find_files<CR>";
         options.desc = "Find files";
       }
       {
         mode = "n";
         key = "<leader>/";
-        action = "<cmd>FzfLua live_grep<CR>";
+        action = "<cmd>Telescope live_grep<CR>";
         options.desc = "Live grep";
       }
       {
         mode = "n";
         key = "<leader>b";
-        action = "<cmd>FzfLua buffers<CR>";
+        action = "<cmd>Telescope buffers<CR>";
         options.desc = "Find buffers";
       }
 
@@ -197,27 +197,7 @@
       };
       guess-indent.enable = true;
 
-      fzf-lua = {
-        enable = true;
-        settings = {
-          winopts = {
-            height = 0.85;
-            width = 0.80;
-            preview = {
-              layout = "flex";
-              flip_columns = 120;
-            };
-          };
-          keymap = {
-            builtin = {
-              "<C-d>" = "preview-page-down";
-              "<C-u>" = "preview-page-up";
-            };
-          };
-          files.hidden = true;
-          grep.hidden = true;
-        };
-      };
+      telescope.enable = true;
 
       lualine = {
         enable = true;

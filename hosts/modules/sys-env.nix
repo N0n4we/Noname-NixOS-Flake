@@ -1,6 +1,6 @@
 {
   environment.variables = {
-    EDITOR = "neovide --fork";
+    EDITOR = "hx";
   };
   environment.sessionVariables = {
     INPUT_METHOD = "fcitx";

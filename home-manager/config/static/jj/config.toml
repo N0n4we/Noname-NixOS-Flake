@@ -5,7 +5,7 @@ name = "n0n4w3-jj"
 email = "story.botsfordli@gmail.com"
 
 [ui]
-editor = "nvim"
+editor = "hx"
 diff-formatter = ":git"
 pager = "delta"
 default-command = "log"
