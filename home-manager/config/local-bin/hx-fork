@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+alacritty msg create-window -e hx "$@"

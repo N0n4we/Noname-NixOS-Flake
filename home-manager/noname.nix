@@ -218,4 +218,21 @@ in
     package = pkgs.tealdeer;
     period = "weekly";
   };
+
+  programs.broot = {
+    enable = true;
+    enableNushellIntegration = true;
+    settings.modal = true;
+    settings.verbs = [
+      {
+        invocation = "edit";
+        key = "enter";
+        shortcut = "e";
+        execution = "$EDITOR +{line} {file}";
+        working_dir = "{directory}";
+        apply_to = "text_file";
+        leave_broot = false;
+      }
+    ];
+  };
 }
