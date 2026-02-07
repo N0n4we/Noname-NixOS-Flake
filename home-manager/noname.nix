@@ -100,6 +100,7 @@ in
     jetbrains.idea-oss
     jetbrains.jdk
     ncdu
+    wiki-tui
 
     # LSP & Formatter
     simple-completion-language-server
