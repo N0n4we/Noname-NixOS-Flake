@@ -98,7 +98,6 @@ in
     chafa
     handlr
     jetbrains.idea-oss
-    jetbrains.jdk
     ncdu
     wiki-tui
 
