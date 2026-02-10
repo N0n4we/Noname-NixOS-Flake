@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 {
   home.packages = with pkgs; [
-    nodejs_24
+    nodejs
     yarn
     bun
     pnpm
@@ -14,9 +14,6 @@
     nodePackages.stylelint
     nodePackages.htmlhint
   ];
-
-  home.sessionVariables.PATH =
-    lib.mkAfter ":${config.home.homeDirectory}/.npm-global/bin";
 
   home.file.".npmrc".text = ''
     prefix=${config.home.homeDirectory}/.npm-global
