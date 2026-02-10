@@ -10,7 +10,8 @@
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
           "ui.key.menuAccessKeyFocuses" = false;
           "mousewheel.with_alt.action" = 0;
-          "privacy.resistFingerprinting" = true;
+          "privacy.resistFingerprinting" = false;
+          "privacy.fingerprintingProtection" = true;
         };
         userChrome = ''
           * {
