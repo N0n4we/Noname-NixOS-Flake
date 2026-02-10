@@ -125,6 +125,11 @@
           language-servers = [ "typescript-language-server" "scls" ];
         }
         {
+          name = "vue";
+          scope = "source.vue";
+          language-servers = [ "scls" ];
+        }
+        {
           name = "sql";
           scope = "source.sql";
           language-servers = [ "scls" ];
