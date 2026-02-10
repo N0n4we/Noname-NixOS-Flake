@@ -143,7 +143,6 @@
     };
   };
 
-  # 防止系统自动挂起
   services.logind.settings.Login = {
     HandleLidSwitch = "ignore";
     HandleLidSwitchDocked = "ignore";
