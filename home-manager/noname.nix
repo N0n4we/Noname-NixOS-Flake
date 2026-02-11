@@ -101,6 +101,10 @@ in
     ncdu
     wiki-tui
     pastel
+    rustc
+    cargo
+    wasm-pack
+    lld
 
     # LSP & Formatter
     simple-completion-language-server
@@ -112,6 +116,7 @@ in
     nil
     prettier
     sqlfluff
+    rust-analyzer
   ];
   services.gpg-agent = {
     enable = true;
