@@ -100,6 +100,7 @@ in
     jetbrains.idea-oss
     ncdu
     wiki-tui
+    pastel
 
     # LSP & Formatter
     simple-completion-language-server
