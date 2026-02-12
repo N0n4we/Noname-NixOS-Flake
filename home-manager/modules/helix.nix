@@ -8,6 +8,7 @@
         g = { e = "move_prev_word_end"; };
         "A-s" = ":toggle-option soft-wrap.enable";
         "A-t" = ":sh alacritty msg create-window --working-directory $(pwd)";
+        "A-y" = ":sh alacritty msg create-window --working-directory $(pwd) -e nu -i -e y";
         "C-r" = "redo";
         "C-e" = "scroll_down";
         "C-y" = "scroll_up";
@@ -16,6 +17,7 @@
         g = { e = "move_prev_word_end"; };
         "A-s" = ":toggle-option soft-wrap.enable";
         "A-t" = ":sh alacritty msg create-window --working-directory $(pwd)";
+        "A-y" = ":sh alacritty msg create-window --working-directory $(pwd) -e nu -i -e y";
         "C-e" = "scroll_down";
         "C-y" = "scroll_up";
       };

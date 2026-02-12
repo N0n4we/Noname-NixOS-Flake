@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 {
   environment.variables = {
-    EDITOR = "hx-fork";
+    EDITOR = "hx";
   };
   environment.sessionVariables = {
     INPUT_METHOD = "fcitx";
