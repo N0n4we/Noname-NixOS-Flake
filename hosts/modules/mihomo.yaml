@@ -152,8 +152,7 @@ rules:
   - DOMAIN,dns.alidns.com,DIRECT
   - DOMAIN,doh.pub,DIRECT
 
-  - DOMAIN,eaHh9lW.doggygosubs.com:8443,DIRECT
-  - DOMAIN,rama991.siamparagon.org,DIRECT
+  - DOMAIN,ZRO8h2.doggygosubs.com,DIRECT
 
   - GEOSITE,geolocation-!cn,SELECT
   - GEOSITE,google,SELECT

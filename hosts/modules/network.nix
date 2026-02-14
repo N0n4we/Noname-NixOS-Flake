@@ -300,6 +300,11 @@ in
                     continue
                 fi
 
+                if [[ ! -e "/sys/class/net/$iface_name/device" ]]; then
+                    echo "  -> Skipping $iface_name (no backing device, likely virtual or transient)"
+                    continue
+                fi
+
                 if ip link show "$iface_name" > /dev/null 2>&1; then
                     echo "  -> Randomizing MAC for interface: $iface_name"
 
@@ -307,8 +312,6 @@ in
 
                     # -r or -A
                     macchanger -r "$iface_name"
-
-                    ip link set dev "$iface_name" up
                 fi
             done
         '';
