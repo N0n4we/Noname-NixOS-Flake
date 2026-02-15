@@ -176,8 +176,8 @@ in
       j2z = "trans -4 -s ja -t zh";
       j2e = "trans -4 -s ja -t en";
       j = "jrnl";
-      nu = "alacritty msg create-window --working-directory (pwd) -e nu";
-      bash = "alacritty msg create-window --working-directory (pwd) -e bash";
+      nu-fork = "alacritty msg create-window --working-directory (pwd) -e nu";
+      bash-fork = "alacritty msg create-window --working-directory (pwd) -e bash";
     };
     extraConfig = ''
       def --env y [...args] {
