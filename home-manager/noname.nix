@@ -102,7 +102,7 @@ in
     wiki-tui
     pastel
     rustc
-    cargo
+    rustup
     wasm-pack
     lld
 
@@ -116,7 +116,6 @@ in
     nil
     prettier
     sqlfluff
-    rust-analyzer
   ];
   services.gpg-agent = {
     enable = true;
@@ -240,4 +239,6 @@ in
       }
     ];
   };
+
+  programs.java.enable = true;
 }
