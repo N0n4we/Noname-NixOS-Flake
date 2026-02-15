@@ -21,8 +21,8 @@ alias e2j='trans -4 -s en -t ja'
 alias j2z='trans -4 -s ja -t zh'
 alias j2e='trans -4 -s ja -t en'
 alias j='jrnl'
-alias nu='alacritty msg create-window --working-directory $(pwd) -e nu'
-alias bash='alacritty msg create-window --working-directory $(pwd) -e bash'
+alias nu-fork='alacritty msg create-window --working-directory $(pwd) -e nu'
+alias bash-fork='alacritty msg create-window --working-directory $(pwd) -e bash'
 
 function y() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
