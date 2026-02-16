@@ -116,6 +116,7 @@ in
     nil
     prettier
     sqlfluff
+    gopls
   ];
   services.gpg-agent = {
     enable = true;
@@ -241,6 +242,7 @@ in
   };
 
   programs.java.enable = true;
+  programs.go.enable = true;
 
   programs.zed-editor = {
     enable = true;
