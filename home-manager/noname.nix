@@ -105,6 +105,7 @@ in
     rustup
     wasm-pack
     lld
+    zig
 
     # LSP & Formatter
     simple-completion-language-server
@@ -117,6 +118,7 @@ in
     prettier
     sqlfluff
     gopls
+    zls
   ];
   services.gpg-agent = {
     enable = true;
