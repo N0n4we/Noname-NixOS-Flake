@@ -254,4 +254,8 @@ in
       vim_mode = true;
     };
   };
+
+  programs.distrobox = {
+    enable = true;
+  };
 }
