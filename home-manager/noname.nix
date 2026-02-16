@@ -241,4 +241,17 @@ in
   };
 
   programs.java.enable = true;
+
+  programs.zed-editor = {
+    enable = true;
+    userSettings = {
+      features = {
+        copilot = false;
+      };
+      telemetry = {
+        metrics = false;
+      };
+      vim_mode = true;
+    };
+  };
 }
