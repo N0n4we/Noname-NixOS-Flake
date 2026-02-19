@@ -3,8 +3,8 @@
     enable = true;
     globals.mapleader = " ";
     opts = {
-      number = true;
-      relativenumber = true;
+      number = false;
+      relativenumber = false;
       clipboard = "unnamedplus";
       wrap = true;
       linebreak = true;

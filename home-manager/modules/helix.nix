@@ -22,6 +22,7 @@
         "C-y" = "scroll_up";
       };
       editor = {
+        gutters = [ "diff" ];
         line-number = "relative";
         auto-format = false;
         auto-pairs = false;
@@ -48,7 +49,7 @@
         enable = false;
       };
       editor.statusline = {
-        right = [ "diagnostics" "primary-selection-length" "selections" "position-percentage" "total-line-numbers" "file-encoding" ];
+        right = [ "diagnostics" "primary-selection-length" "selections" "position-percentage" "position" "total-line-numbers" "file-encoding" ];
       };
     };
     languages = {

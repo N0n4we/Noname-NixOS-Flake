@@ -1,4 +1,4 @@
-model: anthropic:claude-opus-4-6-20260205
+model: anthropic:claude-opus-4-6
 top_p: 0.95
 
 clients:
