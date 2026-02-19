@@ -60,7 +60,7 @@ recordall() {
 
     local file_path="${dir}/ScreenRecord_${time}_${RANDOM}.mp4"
 
-    if wf-recorder -f "$file_path" --audio & then
+    if wf-recorder --fps 30 -f "$file_path" --audio & then
         echo $! >/tmp/wf-recorder.pid
         ${notify_cmd_NOT} "ScreenRecord" "Fullscreen recording started"
     else
@@ -84,7 +84,7 @@ recordarea() {
         return 1
     fi
 
-    if wf-recorder -g "$geometry" -f "$file_path" --audio & then
+    if wf-recorder --fps 30 -g "$geometry" -f "$file_path" --audio & then
         echo $! >/tmp/wf-recorder.pid
         ${notify_cmd_NOT} "ScreenRecord" "Area recording started"
     else
@@ -108,7 +108,7 @@ recordcut() {
         return 1
     fi
 
-    if wf-recorder -g "$geometry" -f "$file_path" --audio & then
+    if wf-recorder --fps 30 -g "$geometry" -f "$file_path" --audio & then
         local pid=$!
         echo $pid >/tmp/wf-recorder.pid
         ${notify_cmd_NOT} "ScreenRecord" "Cut recording started"

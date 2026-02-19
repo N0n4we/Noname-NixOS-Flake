@@ -190,7 +190,7 @@ bindsym $mod+Shift+a exec ~/.config/scripts/ScreenShot.sh --show
 bindsym $mod+Ctrl+w exec ~/.config/scripts/ScreenRecord.sh --all
 bindsym $mod+Ctrl+s exec ~/.config/scripts/ScreenRecord.sh --area
 bindsym $mod+Ctrl+x exec ~/.config/scripts/ScreenRecord.sh --cut
-bindsym $mod+Ctrl+a exec ~/.config/scripts/AudioRecord.sh --cut
+bindsym $mod+Ctrl+a exec ~/.config/scripts/AudioRecord.sh --all
 
 # --- 系统控制 (System) ---
 bindsym --locked XF86AudioRaiseVolume exec ~/.config/scripts/Volume.sh --inc
