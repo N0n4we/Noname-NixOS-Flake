@@ -9,11 +9,11 @@ mkdir -p "$save_dir"
 
 finish_shot() {
     if [[ -f "$filepath" ]]; then
+        if [[ "$1" == "edit" ]]; then
+            drawing "$filepath"
+        fi
         wl-copy < "$filepath"
         notify-send "Screenshot" "Saved & Copied"
-        if [[ "$1" == "edit" ]]; then
-            ksnip "$filepath"
-        fi
         if [[ "$1" == "show" ]]; then
             pqiv "$filepath"
         fi

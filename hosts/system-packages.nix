@@ -86,7 +86,7 @@
     mako
     slurp
     grim
-    ksnip
+    drawing
     material-symbols
     matugen
     jellyfin-ffmpeg
