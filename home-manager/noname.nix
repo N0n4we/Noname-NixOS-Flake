@@ -106,6 +106,7 @@ in
     wasm-pack
     lld
     zig
+    hyprpicker
 
     # LSP & Formatter
     simple-completion-language-server
