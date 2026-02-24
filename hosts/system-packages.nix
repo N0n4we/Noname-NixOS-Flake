@@ -79,7 +79,7 @@
     brightnessctl
     libgtop
     dart-sass
-    swww # wallpaper
+    swaybg # wallpaper
     wl-clipboard
     cliphist
     libnotify # For notify-send

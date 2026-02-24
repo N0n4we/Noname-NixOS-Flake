@@ -52,9 +52,8 @@ client.unfocused        #00000000 #00000000 #00000000 #00000000   #00000000
 ### 启动程序 (Startup)
 exec wl-paste --type text --watch cliphist store
 exec wl-paste --type image --watch cliphist store
-exec swww-daemon --format xrgb --no-cache
 exec alacritty --daemon
-exec_always "sh -c 'sleep 2 && swww img ~/.config/background'"
+exec sleep 0.5 && pkill swaybg && swaybg -i ~/.config/background -m fill
 exec mako
 exec wlsunset -s 00:00 -t 2500
 exec fcitx5 -d --replace

@@ -136,6 +136,8 @@ in
   };
   programs.yazi = {
     enable = true;
+    enableNushellIntegration = true;
+    shellWrapperName = "y";
     settings = {
       mgr = {
         ratio = [0 2 3];
@@ -184,15 +186,6 @@ in
       bash-fork = "alacritty msg create-window --working-directory (pwd) -e bash";
     };
     extraConfig = ''
-      def --env y [...args] {
-      	let tmp = (mktemp -t "yazi-cwd.XXXXXX")
-      	yazi ...$args --cwd-file $tmp
-      	let cwd = (open $tmp)
-      	if $cwd != "" and $cwd != $env.PWD {
-      		cd $cwd
-      	}
-      	rm -fp $tmp
-      }
       $env.PATH = ($env.PATH | split row (char esep) | prepend $"($env.HOME)/.local/bin" | uniq)
     '';
     settings = {

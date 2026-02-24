@@ -7,10 +7,8 @@ set -o pipefail
 wallDIR="$HOME/.config/wallpapers"
 wallpaper_current="$HOME/.config/background"
 
-# swww transition config
-FPS=30
-TYPE="random"
-SWWW_PARAMS="--transition-fps $FPS --transition-type $TYPE"
+# swaybg config
+SWAYBG_MODE="fill"  # fill, stretch, fit, center, tile
 
 # Check if wallpaper directory exists
 if [ ! -d "$wallDIR" ]; then
@@ -39,8 +37,12 @@ if [ ! -f "$wallpaper_path" ]; then
     exit 1
 fi
 
-# Set wallpaper using swww
-swww img "$wallpaper_path" $SWWW_PARAMS
+# Kill existing swaybg instance
+pkill swaybg 2>/dev/null
+
+# Set wallpaper using swaybg (run in background)
+swaybg -i "$wallpaper_path" -m "$SWAYBG_MODE" &
+disown
 
 # Create/update symlink to current wallpaper
 rm -f "$wallpaper_current"
