@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    (python312.withPackages (python-pkgs:
+    (python313.withPackages (python-pkgs:
       with python-pkgs; [
         requests
         numpy
