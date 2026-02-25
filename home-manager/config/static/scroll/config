@@ -181,6 +181,9 @@ bindsym $mod+escape scale_workspace incr +0.1
 bindsym $mod+1 scale_content incr -0.1
 bindsym $mod+2 scale_content incr +0.1
 
+bindsym $mod+minus opacity minus 0.1
+bindsym $mod+equal opacity plus 0.1
+
 # --- 截图 & 录屏 (Screenshot) ---
 bindsym $mod+Shift+w exec ~/.config/scripts/ScreenShot.sh --all
 bindsym $mod+Shift+s exec ~/.config/scripts/ScreenShot.sh --area
