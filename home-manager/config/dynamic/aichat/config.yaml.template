@@ -1,13 +1,10 @@
-model: anthropic:claude-opus-4-6
+model: openrouter:claude-opus-4-6
 top_p: 0.95
 
 clients:
   - type: openai-compatible
     name: openrouter
     api_base: https://openrouter.ai/api/v1
-  - type: openai-compatible
-    name: anthropic
-    api_base: https://www.right.codes/claude-aws/v1
 
 stream: true
 save: true
