@@ -96,6 +96,8 @@
     tealdeer
     pciutils
     android-tools
+    lsof
+    whois
   ];
 
   programs.nix-ld.enable = true;
