@@ -46,13 +46,13 @@
       {
         mode = "n";
         key = "<leader>x";
-        action = "<cmd>bd<CR>";
+        action = "<cmd>Bdelete<CR>";
         options.desc = "Close buffer";
       }
       {
         mode = "n";
         key = "<leader>X";
-        action = "<cmd>bd!<CR>";
+        action = "<cmd>Bdelete!<CR>";
         options.desc = "Force close buffer";
       }
       {
@@ -180,7 +180,6 @@
         };
       };
       flash.enable = true;
-      bufferline.enable = true;
       yazi.enable = true;
       web-devicons.enable = true;
       which-key.enable = true;
@@ -236,6 +235,10 @@
         settings.renderer.group_empty = true;
         settings.git.enable = false;
       };
+
+      bufdelete.enable = true;
+
+      oil.enable = true;
     };
   };
   programs.neovide.enable = true;
