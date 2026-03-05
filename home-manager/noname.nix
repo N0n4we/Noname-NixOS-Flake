@@ -39,7 +39,7 @@ in
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "text/plain" = "neovide.desktop";
+      "text/*" = "neovide.desktop";
       "image/*" = "pqiv.desktop";
       "video/*" = "mpv.desktop";
       "audio/*" = "mpv.desktop";
