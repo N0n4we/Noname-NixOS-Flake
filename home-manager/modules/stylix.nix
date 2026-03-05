@@ -22,7 +22,6 @@
       nixvim.enable = true;
       neovide.enable = true;
       helix.enable = true;
-      emacs.enable = true;
       zed.enable = true;
     };
     polarity = "dark";
