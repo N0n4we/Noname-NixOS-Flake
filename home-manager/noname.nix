@@ -71,7 +71,6 @@ in
     glava
     webcamoid
     codegrab
-    opencode
     yt-dlp
     sqlite
     duckdb
@@ -93,7 +92,11 @@ in
     linux-wallpaperengine
     sqlit-tui
     libreoffice-still
+    opencode
     claude-code
+    codex
+    gemini-cli-bin
+    qwen-code
     cronie
     chafa
     handlr
