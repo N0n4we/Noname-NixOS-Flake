@@ -6,25 +6,6 @@ dir="${HOME}/Videos/ScreenRecord"
 notify_cmd_base="notify-send -t 10000"
 notify_cmd_NOT="notify-send -u low"
 
-notify_view() {
-    local file_path="$1"
-    local message="$2"
-
-    if [[ -e "$file_path" ]]; then
-        resp=$(timeout 5 ${notify_cmd_base} "ScreenRecord" "${message} Saved.")
-        case "$resp" in
-        action1)
-            xdg-open "$file_path" &
-            ;;
-        action2)
-            rm "$file_path" &
-            ;;
-        esac
-    else
-        ${notify_cmd_NOT} "ScreenRecord" "${message} NOT Saved."
-    fi
-}
-
 notify_stop() {
     local message="$1"
     ${notify_cmd_NOT} "ScreenRecord" "$message"
@@ -51,23 +32,6 @@ stop_recording() {
     return 1
 }
 
-recordall() {
-    stop_recording
-    local ret=$?
-    if [[ $ret -eq 0 ]]; then
-        exit 0
-    fi
-
-    local file_path="${dir}/ScreenRecord_${time}_${RANDOM}.mp4"
-
-    if wf-recorder --fps 30 -f "$file_path" --audio & then
-        echo $! >/tmp/wf-recorder.pid
-        ${notify_cmd_NOT} "ScreenRecord" "Fullscreen recording started"
-    else
-        ${notify_cmd_NOT} "ScreenRecord" "Failed to start fullscreen recording"
-    fi
-}
-
 recordarea() {
     stop_recording
     local ret=$?
@@ -92,47 +56,13 @@ recordarea() {
     fi
 }
 
-recordcut() {
-    stop_recording
-    local ret=$?
-    if [[ $ret -eq 0 ]]; then
-        exit 0
-    fi
-
-    local file_path="${dir}/ScreenRecord_${time}_cut.mp4"
-    local geometry
-
-    geometry=$(slurp)
-    if [ -z "$geometry" ]; then
-        ${notify_cmd_NOT} "ScreenRecord" "Cut selection cancelled"
-        return 1
-    fi
-
-    if wf-recorder --fps 30 -g "$geometry" -f "$file_path" --audio & then
-        local pid=$!
-        echo $pid >/tmp/wf-recorder.pid
-        ${notify_cmd_NOT} "ScreenRecord" "Cut recording started"
-        wait $pid
-        if [[ -e "$file_path" ]]; then
-            losslesscut -- "$file_path"
-            notify_view "$file_path" "Cut screen record"
-        else
-            ${notify_cmd_NOT} "ScreenRecord" "Recording failed, no file to trim"
-        fi
-    else
-        ${notify_cmd_NOT} "ScreenRecord" "Failed to start cut recording"
-    fi
-}
-
 if [[ ! -d "$dir" ]]; then
     mkdir -p "$dir"
 fi
 
 case "$1" in
---all) recordall ;;
 --area) recordarea ;;
---cut) recordcut ;;
-*) echo "Available Options: --all, --area, --cut" ;;
+*) echo "Available Options: --area" ;;
 esac
 
 exit 0

@@ -189,9 +189,7 @@ bindsym $mod+Shift+w exec ~/.config/scripts/ScreenShot.sh --all
 bindsym $mod+Shift+s exec ~/.config/scripts/ScreenShot.sh --area
 bindsym $mod+Shift+x exec ~/.config/scripts/ScreenShot.sh --edit
 bindsym $mod+Shift+a exec ~/.config/scripts/ScreenShot.sh --show
-bindsym $mod+Ctrl+w exec ~/.config/scripts/ScreenRecord.sh --all
 bindsym $mod+Ctrl+s exec ~/.config/scripts/ScreenRecord.sh --area
-bindsym $mod+Ctrl+x exec ~/.config/scripts/ScreenRecord.sh --cut
 bindsym $mod+Ctrl+a exec ~/.config/scripts/AudioRecord.sh --all
 
 # --- 系统控制 (System) ---
