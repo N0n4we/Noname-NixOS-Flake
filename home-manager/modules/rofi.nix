@@ -11,10 +11,11 @@
     };
     theme = {
       "window" = {
+        location = "center";
+        anchor = "center";
         border = 3;
         border-radius = 6;
         padding = 15;
-        height = "80%";
       };
       "mainbox" = {
         border = 0;
@@ -25,7 +26,8 @@
         padding = "1px";
       };
       "listview" = {
-        fixed-height = 0;
+        fixed-height = true;
+        lines = 10;
         border = "0px";
         spacing = "2px";
         scrollbar = false;
