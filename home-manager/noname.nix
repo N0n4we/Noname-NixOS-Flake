@@ -110,6 +110,7 @@ in
     lld
     zig
     hyprpicker
+    minio-client
 
     # LSP & Formatter
     simple-completion-language-server
