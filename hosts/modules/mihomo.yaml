@@ -86,25 +86,26 @@ external-controller-cors:
 clash-for-android:
   append-system-dns: false
 proxy-providers:
-  tag:
+  riolu:
     type: file
-    path: /var/lib/private/mihomo/providers/tag.yaml
+    path: /var/lib/private/mihomo/providers/riolu.yaml
     health-check:
       enable: false
+      interval: 1200
+      url: https://www.gstatic.com/generate_204
   doggy:
     type: file
     path: /var/lib/private/mihomo/providers/doggy.yaml
     health-check:
-      enable: true
+      enable: false
       interval: 1200
       url: https://www.gstatic.com/generate_204
-      lazy: true
 proxy-groups:
   - name: SELECT
     type: select
     use:
-      - tag
       - doggy
+      - riolu
     proxies:
       - TUIC
       - TROJAN
@@ -113,7 +114,7 @@ proxy-groups:
   - name: TUIC
     type: url-test
     url: https://www.gstatic.com/generate_204
-    interval: 300
+    interval: 1200
     lazy: true
     use:
       - doggy
@@ -121,7 +122,7 @@ proxy-groups:
   - name: TROJAN
     type: url-test
     url: https://www.gstatic.com/generate_204
-    interval: 300
+    interval: 1200
     lazy: true
     use:
       - doggy
@@ -129,7 +130,16 @@ proxy-groups:
   - name: ANYTLS
     type: url-test
     url: https://www.gstatic.com/generate_204
-    interval: 300
+    interval: 1200
+    lazy: true
+    use:
+      - riolu
+    proxies:
+      - DOGGY-ANYTLS
+  - name: DOGGY-ANYTLS
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 1200
     lazy: true
     use:
       - doggy
