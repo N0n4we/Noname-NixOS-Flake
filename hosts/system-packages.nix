@@ -98,6 +98,7 @@
     android-tools
     lsof
     whois
+    file
   ];
 
   programs.nix-ld.enable = true;
