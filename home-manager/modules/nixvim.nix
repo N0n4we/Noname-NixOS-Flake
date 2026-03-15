@@ -64,8 +64,14 @@
       {
         mode = [ "n" "v" ];
         key = "<A-t>";
-        action = "<cmd>!alacritty msg create-window --working-directory \"$(pwd)\"<CR>";
+        action = "<cmd>!alacritty msg create-window --working-directory $(pwd)<CR>";
         options.desc = "Open new Alacritty window";
+      }
+      {
+        mode = [ "n" "v" ];
+        key = "<A-y>";
+        action = "<cmd>!alacritty msg create-window --working-directory $(pwd) -e nu -i -e y<CR>";
+        options.desc = "Open new Yazi(Alacritty) window";
       }
       {
         mode = "n";
