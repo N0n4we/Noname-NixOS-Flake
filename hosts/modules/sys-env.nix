@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 {
   environment.variables = {
-    EDITOR = "hx";
+    EDITOR = "nvim";
   };
   environment.sessionVariables = {
     INPUT_METHOD = "fcitx";

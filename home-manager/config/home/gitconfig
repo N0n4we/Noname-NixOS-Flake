@@ -6,7 +6,7 @@
     email = story.botsfordli@gmail.com
     name = noname
 [core]
-    editor = hx
+    editor = nvim
     pager = less -FRX
     quotepath = false
 [pager]
