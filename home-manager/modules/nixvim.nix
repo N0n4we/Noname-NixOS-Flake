@@ -245,6 +245,31 @@
       bufdelete.enable = true;
 
       oil.enable = true;
+
+      smear-cursor = {
+        enable = true;
+        settings = {
+          cursor_color = "#ff5a1f";
+          particles_enabled = true;
+          stiffness = 0.35;
+          trailing_stiffness = 0.12;
+          trailing_exponent = 6;
+          damping = 0.72;
+          gradient_exponent = 1.5;
+          gamma = 1;
+          never_draw_over_target = true;
+          hide_target_hack = true;
+          particle_spread = 1.5;
+          particles_per_second = 800;
+          particles_per_length = 50;
+          particle_max_lifetime = 800;
+          particle_max_initial_velocity = 25;
+          particle_velocity_from_cursor = 0.6;
+          particle_damping = 0.08;
+          particle_gravity = -40;
+          min_distance_emit_particles = 0;
+        };
+      };
     };
   };
   programs.neovide.enable = true;
