@@ -123,7 +123,7 @@
       # Flash
       {
         mode = [ "n" "x" ];
-        key = "f";
+        key = "s";
         action = "<cmd>lua require('flash').jump()<CR>";
         options.desc = "Flash jump";
       }
