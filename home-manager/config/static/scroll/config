@@ -64,7 +64,7 @@ exec nautilus --gapplication-service
 exec scrollmsg set_mode v nocenter_horiz nocenter_vert noreorder_auto
 
 layout_default_width 0.6
-layout_default_height 1.0
+layout_default_height 0.8
 layout_widths [0.2 0.4 0.6 0.8 1.0]
 layout_heights [0.2 0.4 0.6 0.8 1.0]
 
@@ -105,7 +105,7 @@ bindsym $mod+Shift+f fullscreen
 bindsym $mod+t exec $term -e nu -i
 bindsym $mod+d exec rofi -show drun -modi drun,filebrowser,run,window
 bindsym $mod+b exec xdg-open "https://"
-bindsym $mod+m exec $term -e btop; toggle_size this 0.8 1.0
+bindsym $mod+m exec $term -e btop
 bindsym $mod+y exec $term -e nu -i -e y
 bindsym $mod+a exec $term -e sh -ic "aichat -s -r brief"
 bindsym $mod+x exec notify-send "$(~/.local/bin/status)"
