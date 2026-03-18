@@ -19,6 +19,11 @@
 
     autoCmd = [
       {
+        event = [ "VimEnter" ];
+        pattern = [ "*" ];
+        command = "lua vim.schedule(function() vim.opt.laststatus = 0 end)";
+      }
+      {
         event = [ "BufWritePre" ];
         pattern = [ "*" ];
         command = "%s/\\s\\+$//e";
@@ -60,6 +65,12 @@
         key = "<A-s>";
         action = "<cmd>set wrap!<CR>";
         options.desc = "Toggle soft wrap";
+      }
+      {
+        mode = [ "n" "v" ];
+        key = "<A-i>";
+        action = "<cmd>let &laststatus = (&laststatus == 0 ? 2 : 0)<CR>";
+        options.desc = "Toggle lualine";
       }
       {
         mode = [ "n" "v" ];
