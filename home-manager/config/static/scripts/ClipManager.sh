@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
-# Clipboard Manager. This script uses cliphist, rofi, and wl-copy.
 
 set -o pipefail
 
-# Variables
-msg='CTRL DEL - del | ALT DEL - wipe'
-
-# Check if rofi is already running
 if pidof rofi >/dev/null; then
     pkill rofi
 fi
@@ -16,7 +11,7 @@ while true; do
         rofi -i -dmenu -p "" \
             -kb-custom-1 "Control-Delete" \
             -kb-custom-2 "Alt-Delete" \
-            -mesg "$msg" < <(cliphist list)
+            < <(cliphist list)
     )
 
     case "$?" in
