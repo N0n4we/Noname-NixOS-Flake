@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -e
+
+sel="$(cliphist list | tv --source-output "{}" --no-remote)" && [ -n "$sel" ] && printf '%s\n' "$sel" | cliphist decode | wl-copy

@@ -112,6 +112,7 @@ in
     hyprpicker
     minio-client
     television
+    dex
 
     # LSP & Formatter
     simple-completion-language-server

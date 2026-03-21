@@ -103,20 +103,13 @@ bindsym $mod+Shift+f fullscreen
 
 # --- 应用启动 ---
 bindsym $mod+t exec $term -e nu -i
-bindsym $mod+d exec rofi -show drun -modi drun,filebrowser,run,window
 bindsym $mod+b exec xdg-open "https://"
 bindsym $mod+m exec $term -e btop
 bindsym $mod+y exec $term -e nu -i -e y
 bindsym $mod+a exec $term -e sh -ic "aichat -s -r brief"
 bindsym $mod+x exec notify-send "$(~/.local/bin/status)"
 
-# --- 脚本执行 ---
-bindsym $mod+w exec ~/.config/scripts/WallpaperSelect.sh
-bindsym $mod+s exec ~/.config/scripts/NixSearch.sh
-bindsym $mod+c exec ~/.config/scripts/RofiCalc.sh
-bindsym $mod+v exec ~/.config/scripts/ClipManager.sh
-bindsym $mod+e exec ~/.config/scripts/RofiEmoji.sh
-
+# --- OCR ---
 bindsym $mod+Shift+e exec grim -g "$(slurp)" - | tesseract stdin stdout -l eng | wl-copy
 bindsym $mod+Shift+c exec grim -g "$(slurp)" - | tesseract stdin stdout -l chi_sim | tr -d '[:space:]' | wl-copy
 bindsym $mod+Shift+d exec grim -g "$(slurp)" - | tesseract stdin stdout -l jpn | tr -d '[:space:]' | wl-copy
