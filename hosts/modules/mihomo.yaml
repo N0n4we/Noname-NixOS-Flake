@@ -86,67 +86,84 @@ external-controller-cors:
 clash-for-android:
   append-system-dns: false
 proxy-providers:
-  riolu:
+  sub1:
     type: file
-    path: /var/lib/private/mihomo/providers/riolu.yaml
+    path: /var/lib/private/mihomo/providers/sub1.yaml
     health-check:
       enable: false
       interval: 1200
-      url: https://www.gstatic.com/generate_204
-  doggy:
+      url: https://www.apple.com/library/test/success.html
+  sub2:
     type: file
-    path: /var/lib/private/mihomo/providers/doggy.yaml
+    path: /var/lib/private/mihomo/providers/sub2.yaml
     health-check:
       enable: false
       interval: 1200
-      url: https://www.gstatic.com/generate_204
+      url: https://www.apple.com/library/test/success.html
+  sub3:
+    type: file
+    path: /var/lib/private/mihomo/providers/sub3.yaml
+    health-check:
+      enable: false
+      interval: 1200
+      url: https://www.apple.com/library/test/success.html
 proxy-groups:
   - name: SELECT
     type: select
     use:
-      - doggy
-      - riolu
+      - sub1
+      - sub2
+      - sub3
     proxies:
       - TUIC
       - TROJAN
       - ANYTLS
+      - VLESS
       - DIRECT
   - name: TUIC
     type: url-test
-    url: https://www.gstatic.com/generate_204
+    url: https://www.apple.com/library/test/success.html
     interval: 1200
     lazy: true
     use:
-      - doggy
+      - sub1
     filter: "Tuic"
   - name: TROJAN
     type: url-test
-    url: https://www.gstatic.com/generate_204
+    url: https://www.apple.com/library/test/success.html
     interval: 1200
     lazy: true
     use:
-      - doggy
+      - sub1
     filter: "TCP"
   - name: ANYTLS
     type: url-test
-    url: https://www.gstatic.com/generate_204
+    url: https://www.apple.com/library/test/success.html
     interval: 1200
     lazy: true
     use:
-      - riolu
+      - sub2
     proxies:
       - DOGGY-ANYTLS
   - name: DOGGY-ANYTLS
     type: url-test
-    url: https://www.gstatic.com/generate_204
+    url: https://www.apple.com/library/test/success.html
     interval: 1200
     lazy: true
     use:
-      - doggy
+      - sub1
     filter: "AnyTLS"
+  - name: VLESS
+    type: url-test
+    url: https://www.apple.com/library/test/success.html
+    interval: 1200
+    lazy: true
+    use:
+      - sub3
 rules:
   - GEOSITE,category-ads-all,REJECT
 
+  - DOMAIN,www.apple.com,SELECT
   - DOMAIN,browserleaks.com,SELECT
 
   - GEOSITE,cn,DIRECT
@@ -160,8 +177,6 @@ rules:
   - DOMAIN,feishucdn.com,DIRECT
   - DOMAIN,dns.alidns.com,DIRECT
   - DOMAIN,doh.pub,DIRECT
-
-  - DOMAIN,ZRO8h2.doggygosubs.com,DIRECT
 
   - GEOSITE,geolocation-!cn,SELECT
   - GEOSITE,google,SELECT
