@@ -8,6 +8,7 @@ email = "story.botsfordli@gmail.com"
 editor = "nvim"
 diff-formatter = ":git"
 pager = "delta"
+paginate = "never"
 default-command = "log"
 
 [revset-aliases]
