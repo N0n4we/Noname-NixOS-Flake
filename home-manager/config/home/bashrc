@@ -46,7 +46,7 @@ function br {
     fi
 }
 
-eval "$(fzf --bash)"
+eval "$(tv init bash)"
 eval "$(zoxide init bash)"
 
 export PATH="$HOME/.local/bin:$PATH"

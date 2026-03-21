@@ -43,7 +43,6 @@
     nmap
     psmisc
     fd
-    fzf
     jq
     hjson-go
     yq-go

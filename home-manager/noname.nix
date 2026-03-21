@@ -111,6 +111,7 @@ in
     zig
     hyprpicker
     minio-client
+    television
 
     # LSP & Formatter
     simple-completion-language-server
