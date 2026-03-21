@@ -74,7 +74,7 @@ for_window [app_id="mpv"] floating enable
 floating_modifier $mod normal
 mouse_warping container
 focus_follows_mouse full
-focus_wrapping no
+focus_wrapping force
 
 seat * {
     hide_cursor 5000
