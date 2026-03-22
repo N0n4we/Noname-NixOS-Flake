@@ -3,8 +3,10 @@
 set -e
 
 if [[ $# -eq 0 ]]; then
-  echo 'Search (pkg|opt|hm|sty|mn)'
-  exit 0
+  read -e -p 'Search (pkg|opt|hm|sty|mn): ' input
+  [[ -z "$input" ]] && exit 0
+
+  set -- $input
 fi
 
 cmd="${1:-pkg}"
