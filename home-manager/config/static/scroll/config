@@ -105,7 +105,7 @@ bindsym $mod+Shift+f fullscreen
 bindsym $mod+t exec $term -e nu -i
 bindsym $mod+b exec xdg-open "https://"
 bindsym $mod+m exec $term -e btop
-bindsym $mod+y exec $term -e nu -i -e y
+bindsym $mod+e exec $term -e nu -i -e y
 bindsym $mod+a exec $term -e sh -ic "aichat -s -r brief"
 bindsym $mod+s exec notify-send "$(~/.local/bin/status)"
 
