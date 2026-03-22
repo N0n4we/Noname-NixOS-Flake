@@ -47,6 +47,14 @@ function br {
 }
 
 eval "$(tv init bash)"
+_tv_insert_command() {
+  local selected
+  selected="$(compgen -c | sort -u | tv)" || return
+  READLINE_LINE="${READLINE_LINE:0:READLINE_POINT}$selected${READLINE_LINE:READLINE_POINT}"
+  READLINE_POINT=$(( READLINE_POINT + ${#selected} ))
+}
+bind -x '"\C-e":_tv_insert_command'
+
 eval "$(zoxide init bash)"
 
 export PATH="$HOME/.local/bin:$PATH"

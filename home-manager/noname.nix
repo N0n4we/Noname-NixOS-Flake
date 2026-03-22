@@ -193,6 +193,56 @@ in
     };
     extraConfig = ''
       $env.PATH = ($env.PATH | split row (char esep) | prepend $"($env.HOME)/.local/bin" | uniq)
+      $env.config = (
+        $env.config
+        | upsert keybindings (
+            ($env.config.keybindings | append {
+              name: tv-insert-command
+              modifier: control
+              keycode: char_e
+              mode: [emacs vi_insert vi_normal]
+              event: {
+                send: executehostcommand
+                cmd: '
+                  let external_commands = (
+                    $env.PATH
+                    | where { |p| $p | path exists }
+                    | each { |dir|
+                        glob ($dir | path join "*")
+                        | each { |f| $f | path basename }
+                      }
+                    | flatten
+                  )
+
+                  let nu_commands = (
+                    help commands
+                    | get name
+                  )
+
+                  let aliases = (
+                    scope aliases
+                    | get name
+                  )
+
+                  let selected = (
+                    $external_commands
+                    | append $nu_commands
+                    | append $aliases
+                    | uniq
+                    | sort
+                    | str join (char nl)
+                    | tv -p "tldr {}"
+                    | str trim
+                  )
+
+                  if ($selected | is-not-empty) {
+                    commandline edit --insert $selected
+                  }
+                '
+              }
+            })
+          )
+      )
     '';
     settings = {
       history = {
