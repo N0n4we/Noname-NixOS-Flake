@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+
+wallDIR="${WALLPAPER_DIR:-$HOME/.config/wallpapers}"
+
+selected=$(ls -1 "$wallDIR"/*.{jpg,jpeg,png,gif,bmp,webp} 2>/dev/null | xargs -I{} basename {} | tv --source-output "{}" --no-remote)
+
+[[ -z "$selected" ]] && exit 0
+
+wallpaper_path="$wallDIR/$selected"
+ln -sf $wallpaper_path ~/.config/background
+pkill swaybg 2>/dev/null || true
+swaybg -i "$wallpaper_path" -m fill 2>/dev/null &
+disown

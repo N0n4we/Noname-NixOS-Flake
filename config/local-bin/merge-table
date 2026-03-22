@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+
+import argparse
+import os
+import sys
+
+def merge_tables(file1, file2, output):
+    data = {}
+    # 读取逻辑保持不变
+    for filename in [file1, file2]:
+        if not os.path.exists(filename): continue
+        with open(filename, 'r', encoding='utf-8') as f:
+            for line in f:
+                parts = line.strip().split('\t')
+                if not parts: continue
+                key = parts[0]
+                if key in data:
+                    data[key].extend(parts[1:])
+                else:
+                    data[key] = parts
+
+    with open(output, 'w', encoding='utf-8') as f:
+        for key in data:
+            f.write('\t'.join(data[key]) + '\n')
+    print(f"成功：合并完成，结果已保存至 '{output}'")
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description='合并两个制表符分隔的文本文件，按首列主键关联字段',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog='''示例: python %(prog)s -f1 t1.txt -f2 t2.txt -o out.txt'''
+    )
+
+    parser.add_argument('-f1', '--file1', default='table1.txt', help='第一个输入文件 (默认: table1.txt)')
+    parser.add_argument('-f2', '--file2', default='table2.txt', help='第二个输入文件 (默认: table2.txt)')
+    parser.add_argument('-o', '--output', default='merged.txt', help='输出文件路径 (默认: merged.txt)')
+
+    args = parser.parse_args()
+
+    # 验证必要文件
+    missing = [f for f in [args.file1, args.file2] if not os.path.exists(f)]
+    if missing:
+        print(f"错误：找不到文件 {', '.join(missing)}")
+        sys.exit(1)
+
+    merge_tables(args.file1, args.file2, args.output)

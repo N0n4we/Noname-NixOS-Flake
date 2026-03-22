@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+tmp_a=$(mktemp)
+tmp_b=$(mktemp)
+echo "# Paste block-A, then Ctrl-D"
+cat > "$tmp_a"
+echo "# Paste block-B, then Ctrl-D"
+cat > "$tmp_b"
+delta "$tmp_a" "$tmp_b"
+rm -f "$tmp_a"
+rm -f "$tmp_b"

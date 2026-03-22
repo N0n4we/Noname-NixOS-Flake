@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+mecab -O yomi <<< "$1"

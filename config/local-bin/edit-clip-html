@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# 创建临时文件，脚本结束自动删除
+temp_file=$(mktemp --suffix .html)
+trap 'rm -f "$temp_file"' EXIT
+
+# HTML格式读取剪切板
+wl-paste --type text/html > "$temp_file"
+
+if ! [ -s "$temp_file" ]; then
+  wl-paste > "$temp_file"
+fi
+
+# 去除所有</meta>标签
+sed -i 's/<\/meta>//g' "$temp_file"
+
+# 进行格式化
+prettier --write --parser html "$temp_file"
+
+# 编辑文件
+$EDITOR "$temp_file"
+
+# HTML格式复制回剪切板
+wl-copy --type text/html < "$temp_file"

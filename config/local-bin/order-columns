@@ -1,0 +1,246 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+import argparse
+from collections import defaultdict
+
+def get_target_table(lineage_file_path: str) -> str | None:
+    """从血缘文件中解析出目标表名"""
+    try:
+        with open(lineage_file_path, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+            for i, line in enumerate(lines):
+                if line.strip() == "Target Tables:":
+                    # 下一行是表名
+                    if i + 1 < len(lines):
+                        target_line = lines[i + 1].strip()
+                        return target_line
+    except FileNotFoundError:
+        return None
+    return None
+
+def process_lineage_file(lineage_file_path: str, order_file_path: str, output_file_path: str,
+                         table_field_tabs: int = 1, table_table_tabs: int = 1):
+    """
+    根据给定的顺序文件，对血缘文件中的列依赖进行排序和简化。
+    输出格式：字段名 -> [源表1\t字段1,字段2\t源表2\t字段3,字段4]
+
+    参数:
+        lineage_file_path: 血缘文件路径
+        order_file_path: 排序文件路径
+        output_file_path: 输出文件路径
+        table_field_tabs: 表名和字段列表之间的制表符个数
+        table_table_tabs: 不同源表之间的制表符个数
+    """
+    # 1. 获取目标表名
+    target_table = get_target_table(lineage_file_path)
+    if not target_table:
+        print(f"错误: 无法在 '{lineage_file_path}' 中找到 'Target Tables:' 定义。")
+        return
+
+    print(f"已识别目标表: {target_table}")
+
+    # 2. 读取排序顺序并创建快速查找的map
+    try:
+        with open(order_file_path, 'r', encoding='utf-8') as f:
+            column_order = [line.strip() for line in f if line.strip()]
+        # 创建一个从列名到其顺序索引的映射，以便高效排序
+        order_map = {col: i for i, col in enumerate(column_order)}
+        print(f"已加载 {len(column_order)} 个排序列。")
+    except FileNotFoundError:
+        print(f"错误: 排序文件 '{order_file_path}' 未找到。")
+        return
+
+    # 3. 解析血缘文件并按源表分组
+    # 数据结构: { "source_table_name": { "target_col_short": [source_col_short1, source_col_short2, ...] } }
+    grouped_lineage = defaultdict(lambda: defaultdict(list))
+    found_target_cols = set() # 记录在血缘文件中找到的所有目标列
+
+    source_tables = set()
+    in_source_section = False
+    in_column_section = False
+    try:
+        with open(lineage_file_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                if line == "Source Tables:":
+                    in_source_section = True
+                    continue
+                if line.startswith("---"):
+                    in_source_section = False
+                    if line.startswith("--- Column Lineage ---"):
+                        in_column_section = True
+                    continue
+                if in_source_section:
+                    source_tables.add(line.strip())
+                    continue
+                if not in_column_section:
+                    continue
+
+                # 只处理目标表的血缘
+                if line.startswith(target_table + "."):
+                    parts = [p.strip() for p in line.split("<-")]
+                    if len(parts) >= 2:
+                        target_col_full = parts[0]
+                        source_col_full = parts[-1]
+                        target_col_short = target_col_full.split('.')[-1]
+
+                        found_target_cols.add(target_col_short)
+
+                        # 确定源表名和源列短名
+                        source_table_name = None
+                        source_col_short = None
+                        for st in source_tables:
+                            if source_col_full.startswith(st + '.'):
+                                source_table_name = st
+                                source_col_short = source_col_full[len(st) + 1:]  # 去掉表名前缀
+                                break
+
+                        # 如果源不是已知的源表（可能是函数、常量等），则归入一个特殊组
+                        if source_table_name is None:
+                            source_table_name = "ConstantsOrFunctions"
+                            source_col_short = source_col_full
+
+                        # 存储到嵌套的字典中
+                        grouped_lineage[source_table_name][target_col_short].append(source_col_short)
+
+    except FileNotFoundError:
+        print(f"错误: 血缘文件 '{lineage_file_path}' 未找到。")
+        return
+
+    # 4. 重新组织数据结构：{ "target_col_short": { "source_table": [source_cols] } }
+    reorganized = defaultdict(lambda: defaultdict(list))
+
+    for source_table in grouped_lineage:
+        target_to_sources = grouped_lineage[source_table]
+        for target_col_short, source_cols in target_to_sources.items():
+            reorganized[target_col_short][source_table].extend(source_cols)
+
+    # 5. 生成制表符字符串
+    tab_between_table_field = '\t' * table_field_tabs
+    tab_between_tables = '\t' * table_table_tabs
+
+    # 6. 按新格式写入输出文件
+    with open(output_file_path, 'w', encoding='utf-8') as f:
+        f.write(f"--- Column Lineage for table: {target_table} ---\n")
+        f.write(f"--- (Ordered by '{order_file_path}') ---\n")
+        f.write(f"--- Format: field_name -> [source_table1\\tcol1,col2\\tsource_table2\\tcol3,col4] ---\n")
+        f.write(f"--- Table-Field tabs: {table_field_tabs}, Table-Table tabs: {table_table_tabs} ---\n\n")
+
+        # 严格按 column_order 顺序输出所有字段
+        for target_col_short in column_order:
+            if target_col_short in reorganized:
+                source_tables_dict = reorganized[target_col_short]
+
+                # 按源表名排序
+                sorted_source_tables = sorted(source_tables_dict.keys())
+
+                # 构建[]内的内容
+                parts = []
+                for source_table in sorted_source_tables:
+                    source_cols = source_tables_dict[source_table]
+
+                    # 去重但保持顺序
+                    seen = set()
+                    unique_source_cols = []
+                    for col in source_cols:
+                        if col not in seen:
+                            seen.add(col)
+                            unique_source_cols.append(col)
+
+                    # 格式：表名 <制表符×N> 字段1,字段2,字段3
+                    source_cols_str = ','.join(unique_source_cols)
+                    parts.append(f"{source_table}{tab_between_table_field}{source_cols_str}")
+
+                # 用制表符连接不同源表
+                sources_str = tab_between_tables.join(parts)
+
+                # 输出格式：字段名 -> [源表信息]
+                f.write(f"{target_col_short} -> [{sources_str}]\n")
+            else:
+                # 在 order 文件中但不在 lineage 文件中的字段，输出空的依赖
+                f.write(f"{target_col_short} -> [  ]\n")
+
+    print(f"处理完成！结果已保存到 '{output_file_path}'。")
+    print(f"使用配置: 表-字段制表符数={table_field_tabs}, 表-表制表符数={table_table_tabs}")
+
+
+if __name__ == "__main__":
+    # 创建参数解析器
+    parser = argparse.ArgumentParser(
+        description='处理SQL血缘文件，按指定顺序排序并格式化输出',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog='''
+示例用法:
+  # 使用默认参数（各1个制表符）
+  python %(prog)s
+
+  # 表和字段之间使用2个制表符，表与表之间使用3个制表符
+  python %(prog)s --table-field-tabs 2 --table-table-tabs 3
+
+  # 使用简写参数
+  python %(prog)s -tf 2 -tt 3
+
+  # 指定自定义文件路径
+  python %(prog)s -l lineage.txt -o order.txt -out result.txt -tf 2 -tt 1
+        '''
+    )
+
+    parser.add_argument('-l', '--lineage-file',
+                       default='lineage.txt',
+                       help='血缘文件路径 (默认: lineage.txt)')
+
+    parser.add_argument('-o', '--order-file',
+                       default='order.txt',
+                       help='排序文件路径 (默认: order.txt)')
+
+    parser.add_argument('-out', '--output-file',
+                       default='result.txt',
+                       help='输出文件路径 (默认: result.txt)')
+
+    parser.add_argument('-tf', '--table-field-tabs',
+                       type=int,
+                       default=1,
+                       help='表名和字段列表之间的制表符个数 (默认: 1)')
+
+    parser.add_argument('-tt', '--table-table-tabs',
+                       type=int,
+                       default=1,
+                       help='不同源表之间的制表符个数 (默认: 1)')
+
+    args = parser.parse_args()
+
+    # 参数验证
+    if args.table_field_tabs < 0:
+        print("错误: 表-字段制表符个数不能为负数")
+        sys.exit(1)
+
+    if args.table_table_tabs < 0:
+        print("错误: 表-表制表符个数不能为负数")
+        sys.exit(1)
+
+    # 检查输入文件是否存在
+    required_files = [args.lineage_file, args.order_file]
+    missing_files = []
+    for f in required_files:
+        if not os.path.exists(f):
+            missing_files.append(f)
+
+    if missing_files:
+        print("错误：脚本无法运行，因为缺少以下必要的输入文件：")
+        for f in missing_files:
+            print(f" - {f}")
+        print(f"\n请确保 '{args.lineage_file}' 和 '{args.order_file}' 文件存在。")
+        sys.exit(1)
+
+    # 如果文件都存在，则继续执行主逻辑
+    process_lineage_file(
+        args.lineage_file,
+        args.order_file,
+        args.output_file,
+        args.table_field_tabs,
+        args.table_table_tabs
+    )

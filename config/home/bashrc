@@ -1,0 +1,60 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+PS1='[\u@\h \W]\$ '
+
+bind "set completion-ignore-case on"
+bind "set show-all-if-ambiguous on"
+
+alias ls='eza --icons --group-directories-first'
+alias ll='eza -lbF --git --icons --total-size --group-directories-first'
+alias lt='eza --tree --level=2 --icons'
+
+alias z2j='trans -4 -s zh -t ja'
+alias z2e='trans -4 -s zh -t en'
+alias e2z='trans -4 -s en -t zh'
+alias e2j='trans -4 -s en -t ja'
+alias j2z='trans -4 -s ja -t zh'
+alias j2e='trans -4 -s ja -t en'
+alias j='jrnl'
+alias nu-fork='alacritty msg create-window --working-directory $(pwd) -e nu'
+alias bash-fork='alacritty msg create-window --working-directory $(pwd) -e bash'
+
+function y() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+    yazi "$@" --cwd-file="$tmp"
+    IFS= read -r -d '' cwd < "$tmp"
+    [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+    rm -f -- "$tmp"
+}
+
+function br {
+    local cmd cmd_file code
+    cmd_file=$(mktemp)
+    if broot --outcmd "$cmd_file" "$@"; then
+        cmd=$(<"$cmd_file")
+        command rm -f "$cmd_file"
+        eval "$cmd"
+    else
+        code=$?
+        command rm -f "$cmd_file"
+        return "$code"
+    fi
+}
+
+eval "$(tv init bash)"
+_tv_insert_command() {
+  local selected
+  selected="$(compgen -c | sort -u | tv)" || return
+  READLINE_LINE="${READLINE_LINE:0:READLINE_POINT}$selected${READLINE_LINE:READLINE_POINT}"
+  READLINE_POINT=$(( READLINE_POINT + ${#selected} ))
+}
+bind -x '"\C-e":_tv_insert_command'
+
+eval "$(zoxide init bash)"
+
+export PATH="$HOME/.local/bin:$PATH"

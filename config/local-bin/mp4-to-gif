@@ -1,0 +1,73 @@
+import sys
+import os
+from moviepy import VideoFileClip
+import argparse
+
+
+def mp4_to_gif(input_file, fps=10, scale=1.0):
+    """
+    将MP4文件转换为GIF
+
+    参数:
+    - input_file: 输入的MP4文件路径
+    - fps: GIF的帧率（默认10）
+    - scale: 缩放比例（默认1.0，即原始大小）
+    """
+    # 检查文件是否存在
+    if not os.path.exists(input_file):
+        print(f"错误：文件 '{input_file}' 不存在")
+        return False
+
+    # 检查文件扩展名
+    if not input_file.lower().endswith(".mp4"):
+        print("错误：输入文件必须是MP4格式")
+        return False
+
+    # 生成输出文件名（同目录，同名，扩展名改为.gif）
+    output_file = os.path.splitext(input_file)[0] + ".gif"
+
+    try:
+        print(f"正在转换 '{input_file}' 到 '{output_file}'...")
+
+        # 加载视频
+        video = VideoFileClip(input_file)
+
+        # 如果需要缩放
+        if scale != 1.0:
+            video = video.resize(scale)
+
+        # 转换为GIF
+        video.write_gif(output_file, fps=fps)
+
+        # 关闭视频对象
+        video.close()
+
+        print(f"转换完成！GIF已保存为: {output_file}")
+        return True
+
+    except Exception as e:
+        print(f"转换失败：{str(e)}")
+        return False
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="将MP4文件转换为GIF", prog="mp4-to-gif"
+    )
+    parser.add_argument("input_file", help="输入的MP4文件路径")
+    parser.add_argument("-f", "--fps", type=int, default=30, help="帧率（默认: 30）")
+    parser.add_argument(
+        "-s", "--scale", type=float, default=1.0, help="缩放比例（默认: 1.0）"
+    )
+
+    args = parser.parse_args()
+
+    # 执行转换
+    success = mp4_to_gif(args.input_file, args.fps, args.scale)
+
+    # 返回适当的退出码
+    sys.exit(0 if success else 1)
+
+
+if __name__ == "__main__":
+    main()
