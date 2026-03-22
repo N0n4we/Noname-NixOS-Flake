@@ -25,7 +25,7 @@
       # Animations
       # ======================================================================= #
       animations = {
-        bezier = "slowAcc, 0.25, 0.1, 0.35, 0.9";
+        bezier = "slowAcc, 0.60, 0.15, 0.10, 0.95";
         animation = "inputFieldDots, 1, 10, slowAcc";
       };
 
