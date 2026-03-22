@@ -978,7 +978,6 @@
                     staticDir = ./config/static;
                     dynamicDir = ./config/dynamic;
                     localBinDir = ./config/local-bin;
-                    fontDir = ./config/fonts;
 
                     homeFiles = lib.mapAttrs' (name: _: lib.nameValuePair ".${name}" {
                       source = homeDir + "/${name}";
@@ -993,32 +992,6 @@
                       source = dynamicDir + "/${name}";
                       recursive = true;
                     }) (lib.filterAttrs (_: type: type == "directory") (builtins.readDir dynamicDir));
-
-                    fontFiles = if builtins.pathExists fontDir then builtins.readDir fontDir else {};
-                    ttfFiles = lib.filterAttrs (name: type: type == "regular" && lib.hasSuffix ".ttf" name) fontFiles;
-                    ttcFiles = lib.filterAttrs (name: type: type == "regular" && lib.hasSuffix ".ttc" name) fontFiles;
-                    allFontFiles = ttfFiles // ttcFiles;
-                    fontPackage = if allFontFiles != {} then
-                      pkgs.stdenvNoCC.mkDerivation {
-                        name = "local-fonts";
-                        src = fontDir;
-                        installPhase = ''
-                          runHook preInstall
-
-                          local out_font=$out/share/fonts/truetype
-                          mkdir -p $out_font
-
-                          for file in *.ttf *.ttc; do
-                            if [[ -f "$file" ]]; then
-                              install -m444 -Dt $out_font "$file"
-                            fi
-                          done
-
-                          runHook postInstall
-                        '';
-                      }
-                    else
-                      null;
                   in
                   {
                     nixpkgs.config = {
@@ -1126,7 +1099,7 @@
                       nodePackages.markdownlint-cli
                       nodePackages.stylelint
                       nodePackages.htmlhint
-                    ] ++ lib.optional (fontPackage != null) fontPackage;
+                    ];
 
                     home.file = homeFiles // {
                       ".local/bin" = {
