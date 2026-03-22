@@ -107,7 +107,7 @@ bindsym $mod+b exec xdg-open "https://"
 bindsym $mod+m exec $term -e btop
 bindsym $mod+y exec $term -e nu -i -e y
 bindsym $mod+a exec $term -e sh -ic "aichat -s -r brief"
-bindsym $mod+x exec notify-send "$(~/.local/bin/status)"
+bindsym $mod+s exec notify-send "$(~/.local/bin/status)"
 
 # --- OCR ---
 bindsym $mod+Shift+e exec grim -g "$(slurp)" - | tesseract stdin stdout -l eng | wl-copy
@@ -125,7 +125,7 @@ bindsym $mod+Right focus right
 bindsym $mod+Up focus up
 bindsym $mod+Down focus down
 
-bindsym $mod+z focus mode_toggle
+bindsym $mod+w focus mode_toggle
 
 bindsym --whole-window $mod+$alt+button4 focus left
 bindsym --whole-window $mod+$alt+button5 focus right
@@ -180,7 +180,6 @@ bindsym $mod+equal opacity plus 0.1
 # --- 截图 & 录屏 (Screenshot) ---
 bindsym $mod+Shift+w exec ~/.config/scripts/ScreenShot.sh --all
 bindsym $mod+Shift+s exec ~/.config/scripts/ScreenShot.sh --area
-bindsym $mod+Shift+x exec ~/.config/scripts/ScreenShot.sh --edit
 bindsym $mod+Shift+a exec ~/.config/scripts/ScreenShot.sh --show
 bindsym $mod+Ctrl+s exec ~/.config/scripts/ScreenRecord.sh --area
 bindsym $mod+Ctrl+a exec ~/.config/scripts/AudioRecord.sh --all
