@@ -103,6 +103,7 @@ bindsym $mod+Shift+f fullscreen
 
 # --- 应用启动 ---
 bindsym $mod+a exec $term -e nu -i
+bindsym $mod+z exec alacritty -e nu -i
 bindsym $mod+b exec xdg-open "https://"
 bindsym $mod+m exec $term -e btop
 bindsym $mod+s exec $term -e nu -i -e y
