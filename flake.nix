@@ -550,6 +550,9 @@
 
                   - DOMAIN,www.apple.com,SELECT
                   - DOMAIN,browserleaks.com,SELECT
+                  - IP-CIDR,47.110.248.69/8,DIRECT,no-resolve
+                  - IP-CIDR,101.37.64.91/8,DIRECT,no-resolve
+                  - IP-CIDR,101.37.156.175/8,DIRECT,no-resolve
 
                   - GEOSITE,cn,DIRECT
                   - GEOSITE,private,DIRECT
