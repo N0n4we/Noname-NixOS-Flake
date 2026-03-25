@@ -1826,7 +1826,7 @@
                         bufdelete.enable = true;
                         oil.enable = true;
                         smear-cursor = {
-                          enable = true;
+                          enable = false;
                           settings = {
                             cursor_color = "#ff5a1f";
                             particles_enabled = true;
