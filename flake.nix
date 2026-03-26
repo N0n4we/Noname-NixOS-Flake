@@ -1542,7 +1542,7 @@
                         input-field = lib.mkForce {
                           outline_thickness = 0;
                           inner_color = "rgba(0, 0, 0, 0.0)";
-                          size = "1000, 1200";
+                          size = "2000, 4000";
                           placeholder_text = "";
                           dots_size = 1;
                           dots_spacing = 1;
