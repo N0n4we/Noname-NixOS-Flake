@@ -1024,6 +1024,7 @@
                       yt-dlp
                       sqlite
                       duckdb
+                      mariadb
                       delta
                       tesseract
                       pandoc
