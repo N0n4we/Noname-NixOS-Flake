@@ -561,8 +561,8 @@
 
                   - DOMAIN,copypaste.me,DIRECT
                   - DOMAIN,mirrors.tuna.tsinghua.edu.cn,DIRECT
-                  - DOMAIN,feishu.cn,DIRECT
-                  - DOMAIN,feishucdn.com,DIRECT
+                  - DOMAIN-SUFFIX,feishu.cn,DIRECT
+                  - DOMAIN-SUFFIX,feishucdn.com,DIRECT
                   - DOMAIN,dns.alidns.com,DIRECT
                   - DOMAIN,doh.pub,DIRECT
 
