@@ -46,7 +46,7 @@ default_floating_border pixel 4
 # 颜色设置
 # class                 border    backgr.   text      indicator   child_border
 client.focused          #6b6566   #6b6566   #ffffff   #6b6566     #6b6566
-client.focused_inactive #1b1b1b   #1b1b1b   #e0e0e0   #2e9ef4     #595959
+client.focused_inactive #00000000 #00000000 #00000000 #00000000   #00000000
 client.unfocused        #00000000 #00000000 #00000000 #00000000   #00000000
 
 ### 启动程序 (Startup)
