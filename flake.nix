@@ -1048,6 +1048,7 @@
                       codex
                       gemini-cli-bin
                       qwen-code
+                      kiro-cli
                       cronie
                       chafa
                       handlr
