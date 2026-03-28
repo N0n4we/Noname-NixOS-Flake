@@ -1340,17 +1340,17 @@
                       enable = true;
                       settings = {
                         keys.normal = {
-                          "A-s" = ":toggle-option soft-wrap.enable";
-                          "A-t" = ":sh alacritty msg create-window --working-directory $(pwd)";
-                          "A-y" = ":sh alacritty msg create-window --working-directory $(pwd) -e nu -i -e y";
+                          "A-w" = ":toggle-option soft-wrap.enable";
+                          "A-a" = ":sh alacritty msg create-window --working-directory $(pwd)";
+                          "A-s" = ":sh alacritty msg create-window --working-directory $(pwd) -e nu -i -e y";
                           "C-r" = "redo";
                           "C-e" = "scroll_down";
                           "C-y" = "scroll_up";
                         };
                         keys.select = {
-                          "A-s" = ":toggle-option soft-wrap.enable";
-                          "A-t" = ":sh alacritty msg create-window --working-directory $(pwd)";
-                          "A-y" = ":sh alacritty msg create-window --working-directory $(pwd) -e nu -i -e y";
+                          "A-w" = ":toggle-option soft-wrap.enable";
+                          "A-a" = ":sh alacritty msg create-window --working-directory $(pwd)";
+                          "A-s" = ":sh alacritty msg create-window --working-directory $(pwd) -e nu -i -e y";
                           "C-e" = "scroll_down";
                           "C-y" = "scroll_up";
                         };
@@ -1651,7 +1651,7 @@
                         }
                         {
                           mode = [ "n" "v" ];
-                          key = "<A-s>";
+                          key = "<A-w>";
                           action = "<cmd>set wrap!<CR>";
                           options.desc = "Toggle soft wrap";
                         }
@@ -1663,13 +1663,13 @@
                         }
                         {
                           mode = [ "n" "v" ];
-                          key = "<A-t>";
+                          key = "<A-a>";
                           action = "<cmd>!alacritty msg create-window --working-directory $(pwd)<CR>";
                           options.desc = "Open new Alacritty window";
                         }
                         {
                           mode = [ "n" "v" ];
-                          key = "<A-y>";
+                          key = "<A-s>";
                           action = "<cmd>!alacritty msg create-window --working-directory $(pwd) -e nu -i -e y<CR>";
                           options.desc = "Open new Yazi(Alacritty) window";
                         }
