@@ -7,6 +7,7 @@ selected=$(
     /etc/profiles/per-user/"$USER"/share/applications \
     "$HOME"/.nix-profile/share/applications \
     "${XDG_DATA_HOME:-$HOME/.local/share}"/applications \
+    /var/lib/flatpak/exports/share/applications \
     -maxdepth 1 \( -type f -o -type l \) -name '*.desktop' 2>/dev/null |
     LC_ALL=C sort -f |
     tv \
