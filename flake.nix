@@ -1009,7 +1009,6 @@
                     home.enableNixpkgsReleaseCheck = false;
                     home.packages = with pkgs; [
                       telegram-desktop
-                      gajim
                       reaper
                       losslesscut-bin
                       glow

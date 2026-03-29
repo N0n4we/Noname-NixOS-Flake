@@ -58,7 +58,6 @@ exec mako
 exec wlsunset -s 00:00 -t 2500
 exec fcitx5 -d --replace
 exec blueman-applet
-exec gajim
 exec dbus-update-activation-environment --systemd --all
 exec nautilus --gapplication-service
 exec scrollmsg set_mode v nocenter_horiz nocenter_vert noreorder_auto
