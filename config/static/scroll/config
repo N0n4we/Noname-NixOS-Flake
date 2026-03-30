@@ -107,7 +107,7 @@ bindsym $mod+b exec xdg-open "https://"
 bindsym $mod+m exec $term -e btop
 bindsym $mod+s exec $term -e nu -i -e y
 bindsym $mod+e exec $term -e nu -i -e "emoji; exit"
-bindsym $mod+c exec $term -e sh -ic "aichat -s -r brief"
+bindsym $mod+c exec $term -e sh -ic 'aichat -s $(date +%Y%m%d%H%M%S) -r brief'
 bindsym $mod+x exec notify-send "$(~/.local/bin/status)"
 bindsym $mod+n exec $term -e nu -i -e "nix-search; exit"
 bindsym $mod+v exec $term -e nu -i -e "clip; exit"
