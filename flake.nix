@@ -1230,6 +1230,7 @@
                         j = "jrnl";
                         nu-fork = "alacritty msg create-window --working-directory (pwd) -e nu";
                         bash-fork = "alacritty msg create-window --working-directory (pwd) -e bash";
+                        d = "jj diff";
                       };
                       extraConfig = ''
                         $env.PATH = ($env.PATH | split row (char esep) | prepend $"($env.HOME)/.local/bin" | uniq)
