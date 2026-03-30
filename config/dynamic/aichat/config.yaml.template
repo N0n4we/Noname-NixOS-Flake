@@ -7,7 +7,7 @@ clients:
     api_base: https://openrouter.ai/api/v1
 
 stream: true
-save: true
+save: false
 keybindings: vi
 save_session: true
 compress_threshold: 0
