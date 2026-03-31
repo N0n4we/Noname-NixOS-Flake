@@ -1008,6 +1008,7 @@
                     home.stateVersion = "26.05";
                     home.enableNixpkgsReleaseCheck = false;
                     home.packages = with pkgs; [
+                      feishu
                       telegram-desktop
                       reaper
                       losslesscut-bin
