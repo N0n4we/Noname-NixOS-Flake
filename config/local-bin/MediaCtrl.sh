@@ -29,14 +29,9 @@ stop_playback() {
 
 # Display notification with song information
 show_music_notification() {
-    status=$(playerctl status)
-    if [[ "$status" == "Playing" ]]; then
-        song_title=$(playerctl metadata title)
-        song_artist=$(playerctl metadata artist)
-        notify-send -e -u low "Now Playing:" "$song_title by $song_artist"
-    elif [[ "$status" == "Paused" ]]; then
-        notify-send -e -u low " Playback:" " Paused"
-    fi
+    song_title=$(playerctl metadata title)
+    song_artist=$(playerctl metadata artist)
+    notify-send -e -u low "$song_artist" "$song_title"
 }
 
 # Get media control action from command line argument
