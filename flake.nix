@@ -1044,8 +1044,6 @@
                       sqlit-tui
                       libreoffice-still
                       opencode
-                      claude-code
-                      codex
                       gemini-cli-bin
                       qwen-code
                       kiro-cli
