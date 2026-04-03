@@ -1097,13 +1097,13 @@
                       bun
                       pnpm
                       electron
-                      nodePackages.typescript
-                      nodePackages.prettier
-                      nodePackages.eslint
-                      nodePackages.sql-formatter
-                      nodePackages.markdownlint-cli
-                      nodePackages.stylelint
-                      nodePackages.htmlhint
+                      typescript
+                      prettier
+                      eslint
+                      sql-formatter
+                      markdownlint-cli
+                      stylelint
+                      htmlhint
                     ];
 
                     home.file = homeFiles // {
