@@ -1181,7 +1181,6 @@
                     programs.alacritty = {
                       enable = true;
                       package = pkgs.alacritty-graphics;
-                      settings.terminal.shell = { program = "nu"; };
                     };
                     programs.yazi = {
                       enable = true;
@@ -1212,87 +1211,6 @@
                     programs.zoxide = {
                       enable = true;
                       enableNushellIntegration = true;
-                    };
-                    programs.nushell = {
-                      enable = true;
-                      shellAliases = {
-                        core-ls = "ls";
-                        ls = "eza --icons --group-directories-first";
-                        ll = "eza -lbF --git --icons --total-size --group-directories-first";
-                        lt = "eza --tree --level=2 --icons";
-                        z2j = "trans -4 -s zh -t ja";
-                        z2e = "trans -4 -s zh -t en";
-                        e2z = "trans -4 -s en -t zh";
-                        e2j = "trans -4 -s en -t ja";
-                        j2z = "trans -4 -s ja -t zh";
-                        j2e = "trans -4 -s ja -t en";
-                        j = "jrnl";
-                        nu-fork = "alacritty msg create-window --working-directory (pwd) -e nu";
-                        bash-fork = "alacritty msg create-window --working-directory (pwd) -e bash";
-                        d = "jj diff";
-                      };
-                      extraConfig = ''
-                        $env.PATH = ($env.PATH | split row (char esep) | prepend $"($env.HOME)/.local/bin" | uniq)
-                        $env.config = (
-                          $env.config
-                          | upsert keybindings (
-                              ($env.config.keybindings | append {
-                                name: tv-insert-command
-                                modifier: control
-                                keycode: char_e
-                                mode: [emacs vi_insert vi_normal]
-                                event: {
-                                  send: executehostcommand
-                                  cmd: '
-                                    let external_commands = (
-                                      $env.PATH
-                                      | where { |p| $p | path exists }
-                                      | each { |dir|
-                                          glob ($dir | path join "*")
-                                          | each { |f| $f | path basename }
-                                        }
-                                      | flatten
-                                    )
-
-                                    let nu_commands = (
-                                      help commands
-                                      | get name
-                                    )
-
-                                    let aliases = (
-                                      scope aliases
-                                      | get name
-                                    )
-
-                                    let selected = (
-                                      $external_commands
-                                      | append $nu_commands
-                                      | append $aliases
-                                      | uniq
-                                      | sort
-                                      | str join (char nl)
-                                      | tv -p "tldr {}"
-                                      | str trim
-                                    )
-
-                                    if ($selected | is-not-empty) {
-                                      commandline edit --insert $selected
-                                    }
-                                  '
-                                }
-                              })
-                            )
-                        )
-                      '';
-                      settings = {
-                        history = {
-                          file_format = "sqlite";
-                          max_size = 1000000;
-                          sync_on_enter = true;
-                          isolation = false;
-                        };
-                        show_banner = false;
-                      };
                     };
                     programs.pqiv.enable = true;
                     programs.mpv = {
@@ -1341,7 +1259,7 @@
                         keys.normal = {
                           "A-w" = ":toggle-option soft-wrap.enable";
                           "A-a" = ":sh alacritty msg create-window --working-directory $(pwd)";
-                          "A-s" = ":sh alacritty msg create-window --working-directory $(pwd) -e nu -i -e y";
+                          "A-s" = ":sh alacritty msg create-window --working-directory $(pwd) -e bash -ic y";
                           "C-r" = "redo";
                           "C-e" = "scroll_down";
                           "C-y" = "scroll_up";
@@ -1349,7 +1267,7 @@
                         keys.select = {
                           "A-w" = ":toggle-option soft-wrap.enable";
                           "A-a" = ":sh alacritty msg create-window --working-directory $(pwd)";
-                          "A-s" = ":sh alacritty msg create-window --working-directory $(pwd) -e nu -i -e y";
+                          "A-s" = ":sh alacritty msg create-window --working-directory $(pwd) -e bash -ic y";
                           "C-e" = "scroll_down";
                           "C-y" = "scroll_up";
                         };
@@ -1669,7 +1587,7 @@
                         {
                           mode = [ "n" "v" ];
                           key = "<A-s>";
-                          action = "<cmd>!alacritty msg create-window --working-directory $(pwd) -e nu -i -e y<CR>";
+                          action = "<cmd>!alacritty msg create-window --working-directory $(pwd) -e bash -ic y<CR>";
                           options.desc = "Open new Yazi(Alacritty) window";
                         }
                         {
@@ -1975,7 +1893,6 @@
                         zathura.enable = true;
                         mako.enable = true;
                         fcitx5.enable = true;
-                        nushell.enable = true;
                         nixvim.enable = true;
                         neovide.enable = true;
                         helix.enable = true;

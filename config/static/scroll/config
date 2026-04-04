@@ -101,17 +101,17 @@ bindsym $mod+f toggle_size this 1.0 1.0
 bindsym $mod+Shift+f fullscreen
 
 # --- 应用启动 ---
-bindsym $mod+a exec $term -e nu -i
-bindsym $mod+z exec alacritty -e nu -i
+bindsym $mod+a exec $term -e bash -i
+bindsym $mod+z exec alacritty -e bash -i
 bindsym $mod+b exec xdg-open "https://"
 bindsym $mod+m exec $term -e btop
-bindsym $mod+s exec $term -e nu -i -e y
-bindsym $mod+e exec $term -e nu -i -e "emoji; exit"
-bindsym $mod+c exec $term -e nu -i -e 'aichat -s (date now) -r brief; exit'
+bindsym $mod+s exec $term -e bash -ic y
+bindsym $mod+e exec $term -e bash -ic "emoji; exit"
+bindsym $mod+c exec $term -e bash -ic 'aichat -s (date now) -r brief; exit'
 bindsym $mod+x exec notify-send "$(~/.local/bin/status)"
-bindsym $mod+n exec $term -e nu -i -e "nix-search; exit"
-bindsym $mod+v exec $term -e nu -i -e "clip; exit"
-bindsym $mod+d exec $term -e nu -i -e "app; exit"
+bindsym $mod+n exec $term -e bash -ic "nix-search; exit"
+bindsym $mod+v exec $term -e bash -ic "clip; exit"
+bindsym $mod+d exec $term -e bash -ic "app; exit"
 
 # --- OCR ---
 bindsym $mod+Shift+e exec grim -g "$(slurp)" - | tesseract stdin stdout -l eng | wl-copy
