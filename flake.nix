@@ -273,6 +273,7 @@
               _ZO_MAXAGE = 25000;
               PATH = lib.mkAfter "${config.users.users.noname.home}/.npm-global/bin";
               ELECTRON_OVERRIDE_DIST_PATH = "${pkgs.electron}/bin";
+              _ZO_DOCTOR = 0;
             };
 
             programs.scroll = {
@@ -1063,6 +1064,8 @@
                       minio-client
                       television
                       dex
+                      atuin
+                      blesh
                       simple-completion-language-server
                       ruff
                       ty
