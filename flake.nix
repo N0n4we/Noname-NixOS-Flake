@@ -271,7 +271,7 @@
               HISTCONTROL = "ignoreboth:erasedups";
               NIXPKGS_ALLOW_UNFREE = 1;
               _ZO_MAXAGE = 25000;
-              PATH = lib.mkAfter "${config.users.users.noname.home}/.npm-global/bin";
+              PATH = lib.mkAfter [ "${config.users.users.noname.home}/.npm-global/bin" "${config.users.users.noname.home}/.bun/bin" ];
               ELECTRON_OVERRIDE_DIST_PATH = "${pkgs.electron}/bin";
               _ZO_DOCTOR = 0;
             };
