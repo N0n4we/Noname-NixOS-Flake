@@ -1044,9 +1044,6 @@
                       linux-wallpaperengine
                       sqlit-tui
                       libreoffice-still
-                      opencode
-                      gemini-cli-bin
-                      qwen-code
                       kiro-cli
                       cronie
                       chafa
