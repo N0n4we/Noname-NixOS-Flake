@@ -973,6 +973,7 @@
                     home.stateVersion = "26.05";
                     home.enableNixpkgsReleaseCheck = false;
                     home.packages = with pkgs; [
+                      wechat
                       feishu
                       telegram-desktop
                       reaper
