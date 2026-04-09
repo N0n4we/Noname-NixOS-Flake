@@ -472,13 +472,6 @@
                 clash-for-android:
                   append-system-dns: false
                 proxy-providers:
-                  sub1:
-                    type: file
-                    path: /var/lib/private/mihomo/providers/sub1.yaml
-                    health-check:
-                      enable: false
-                      interval: 1200
-                      url: https://www.apple.com/library/test/success.html
                   sub2:
                     type: file
                     path: /var/lib/private/mihomo/providers/sub2.yaml
@@ -497,31 +490,12 @@
                   - name: SELECT
                     type: select
                     use:
-                      - sub1
                       - sub2
                       - sub3
                     proxies:
-                      - TUIC
-                      - TROJAN
                       - ANYTLS
                       - VLESS
                       - DIRECT
-                  - name: TUIC
-                    type: url-test
-                    url: https://www.apple.com/library/test/success.html
-                    interval: 1200
-                    lazy: true
-                    use:
-                      - sub1
-                    filter: "Tuic"
-                  - name: TROJAN
-                    type: url-test
-                    url: https://www.apple.com/library/test/success.html
-                    interval: 1200
-                    lazy: true
-                    use:
-                      - sub1
-                    filter: "TCP"
                   - name: ANYTLS
                     type: url-test
                     url: https://www.apple.com/library/test/success.html
@@ -529,16 +503,6 @@
                     lazy: true
                     use:
                       - sub2
-                    proxies:
-                      - DOGGY-ANYTLS
-                  - name: DOGGY-ANYTLS
-                    type: url-test
-                    url: https://www.apple.com/library/test/success.html
-                    interval: 1200
-                    lazy: true
-                    use:
-                      - sub1
-                    filter: "AnyTLS"
                   - name: VLESS
                     type: url-test
                     url: https://www.apple.com/library/test/success.html
