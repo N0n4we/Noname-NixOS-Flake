@@ -979,6 +979,7 @@
                       reaper
                       losslesscut-bin
                       glow
+                      vivify
                       wev
                       termdown
                       aichat
