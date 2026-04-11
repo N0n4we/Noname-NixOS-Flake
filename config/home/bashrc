@@ -49,6 +49,8 @@ function br {
 [[ $- == *i* ]] && source -- "$(blesh-share)"/ble.sh --attach=none
 
 eval "$(zoxide init bash)"
+alias za='zoxide add .'
+
 eval "$(atuin init bash)"
 
 [[ ! ''${BLE_VERSION-} ]] || ble-attach
