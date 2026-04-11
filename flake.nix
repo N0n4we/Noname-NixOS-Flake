@@ -503,6 +503,7 @@
                     lazy: true
                     use:
                       - sub2
+                    exclude-filter: "香港|HongKong"
                   - name: VLESS
                     type: url-test
                     url: https://www.apple.com/library/test/success.html
@@ -510,6 +511,7 @@
                     lazy: true
                     use:
                       - sub3
+                    exclude-filter: "香港|HongKong"
                 rules:
                   - GEOSITE,category-ads-all,REJECT
 
