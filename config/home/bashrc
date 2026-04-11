@@ -47,9 +47,10 @@ function br {
 }
 
 [[ $- == *i* ]] && source -- "$(blesh-share)"/ble.sh --attach=none
-[[ ! ''${BLE_VERSION-} ]] || ble-attach
 
-eval "$(atuin init bash)"
 eval "$(zoxide init bash)"
+eval "$(atuin init bash)"
+
+[[ ! ''${BLE_VERSION-} ]] || ble-attach
 
 export PATH="$HOME/.local/bin:$PATH"
