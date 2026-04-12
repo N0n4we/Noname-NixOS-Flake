@@ -1128,6 +1128,7 @@
                           "mousewheel.with_alt.action" = 0;
                           "privacy.resistFingerprinting" = false;
                           "privacy.fingerprintingProtection" = true;
+                          "browser.zoom.siteSpecific" = false;
                         };
                         userChrome = ''
                           * {
