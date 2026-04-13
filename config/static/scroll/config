@@ -102,16 +102,16 @@ bindsym $mod+Shift+f fullscreen
 
 # --- 应用启动 ---
 bindsym $mod+a exec $term -e bash -i
-bindsym $mod+z exec alacritty -e bash -i
+bindsym $mod+t exec alacritty -e bash -i
 bindsym $mod+b exec xdg-open "https://"
 bindsym $mod+m exec $term -e btop
-bindsym $mod+s exec $term -e bash -ic y
-bindsym $mod+e exec $term -e bash -ic "emoji; exit"
+bindsym $mod+e exec $term -e bash -ic y
 bindsym $mod+c exec $term -e bash -ic 'aichat -s $(date +"%Y-%m-%d_%H:%M:%S") -r brief; exit'
 bindsym $mod+x exec notify-send "$(~/.local/bin/status)"
-bindsym $mod+n exec $term -e bash -ic "nix-search; exit"
+bindsym $mod+s exec $term -e bash -ic "nix-search; exit"
 bindsym $mod+v exec $term -e bash -ic "clip; exit"
 bindsym $mod+d exec $term -e bash -ic "app; exit"
+bindsym $mod+z exec hyprpicker
 
 # --- OCR ---
 bindsym $mod+Shift+e exec grim -g "$(slurp)" - | tesseract stdin stdout -l eng | wl-copy
