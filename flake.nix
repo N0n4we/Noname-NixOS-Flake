@@ -239,6 +239,9 @@
               networkmanagerapplet
               dnsutils
               macchanger
+              sysstat
+              nethogs
+              busybox
               (python313.withPackages (python-pkgs:
                 with python-pkgs; [
                   requests
