@@ -1020,7 +1020,6 @@
                       mecab
                       translate-shell
                       wf-recorder
-                      jrnl
                       slides
                       linux-wallpaperengine
                       sqlit-tui

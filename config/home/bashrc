@@ -20,7 +20,6 @@ alias e2z='trans -4 -s en -t zh'
 alias e2j='trans -4 -s en -t ja'
 alias j2z='trans -4 -s ja -t zh'
 alias j2e='trans -4 -s ja -t en'
-alias j='jrnl'
 alias bash-fork='alacritty msg create-window --working-directory $(pwd) -e bash'
 alias d='jj diff'
 
