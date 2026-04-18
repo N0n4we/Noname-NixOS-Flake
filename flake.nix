@@ -50,11 +50,21 @@
 
             boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "sdhci_pci" ];
             boot.initrd.kernelModules = [ ];
-            boot.initrd.postResumeCommands = lib.mkAfter ''
-              if [ ! -f /run/machine-id ]; then
-                  ${pkgs.systemd}/bin/systemd-id128 new > /run/machine-id
-              fi
-            '';
+            boot.initrd.systemd.enable = true;
+            boot.initrd.systemd.services.machine-id-init = {
+              description = "Initialize machine-id in initrd";
+              wantedBy = [ "initrd.target" ];
+              after = [ "systemd-journald.service" ];
+              unitConfig = {
+                DefaultDependencies = false;
+                ConditionPathExists = "!/run/machine-id";
+              };
+              serviceConfig = {
+                Type = "oneshot";
+                ExecStart = "${pkgs.systemd}/bin/systemd-id128 new";
+                StandardOutput = "file:/run/machine-id";
+              };
+            };
             boot.kernelModules = [ "kvm-intel" "tcp_bbr" ];
             boot.extraModulePackages = [ ];
             boot.kernelParams = [ "fbcon=rotate:1" "consoleblank=0" "button.lid_init_state=open" ];
