@@ -306,7 +306,6 @@
               '';
             };
             programs.nix-ld.enable = true;
-            programs.vim.enable = true;
             programs.mtr.enable = true;
             programs.dconf.enable = true;
             programs.appimage.enable = true;
@@ -1225,14 +1224,6 @@
                     };
                     programs.java.enable = true;
                     programs.go.enable = true;
-                    programs.zed-editor = {
-                      enable = true;
-                      userSettings = {
-                        features.copilot = false;
-                        telemetry.metrics = false;
-                        vim_mode = true;
-                      };
-                    };
                     programs.distrobox.enable = true;
                     programs.hyprlock = {
                       enable = true;
@@ -1687,7 +1678,6 @@
                         fcitx5.enable = true;
                         nixvim.enable = true;
                         neovide.enable = true;
-                        zed.enable = true;
                       };
                       polarity = "dark";
                       base16Scheme = "${pkgs.base16-schemes}/share/themes/terracotta-dark.yaml";
