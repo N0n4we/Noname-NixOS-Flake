@@ -1444,15 +1444,20 @@
                         cmp = {
                           enable = true;
                           mapping = {
-                            "<C-n>" = "cmp.mapping.select_next_item()";
-                            "<C-p>" = "cmp.mapping.select_prev_item()";
-                            "<C-y>" = "cmp.mapping.confirm({ select = true })";
+                            "<C-n>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+                            "<C-p>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
+                            "<C-e>" = "cmp.mapping.abort()";
                           };
-                          settings.sources = [
-                            { name = "nvim_lsp"; }
-                            { name = "path"; }
-                            { name = "buffer"; }
-                          ];
+                          settings = {
+                            completion = {
+                              completeopt = "menu,menuone,noinsert";
+                            };
+                            sources = [
+                              { name = "nvim_lsp"; }
+                              { name = "path"; }
+                              { name = "buffer"; }
+                            ];
+                          };
                           cmp-nvim-lsp.enable = true;
                           cmp-path.enable = true;
                           cmp-buffer.enable = true;
