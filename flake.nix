@@ -1019,7 +1019,6 @@
                       translate-shell
                       wf-recorder
                       slides
-                      linux-wallpaperengine
                       sqlit-tui
                       libreoffice-still
                       kiro-cli
