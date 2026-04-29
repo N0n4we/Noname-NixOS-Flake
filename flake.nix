@@ -1180,13 +1180,6 @@
                       enableNushellIntegration = true;
                     };
                     programs.pqiv.enable = true;
-                    programs.mpv = {
-                      enable = true;
-                      config = {
-                        ao = "pulse";
-                        keep-open = "yes";
-                      };
-                    };
                     programs.btop.enable = true;
                     programs.vesktop.enable = true;
                     programs.zathura = {
