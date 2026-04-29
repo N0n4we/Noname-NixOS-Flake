@@ -1002,7 +1002,6 @@
                       glava
                       webcamoid
                       codegrab
-                      yt-dlp
                       sqlite
                       duckdb
                       mariadb
