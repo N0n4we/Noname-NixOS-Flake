@@ -1063,10 +1063,11 @@
                       source-han-mono
                       source-han-serif
                       nerd-fonts.caskaydia-cove
-                      gitFull
+                      git
                       jujutsu
                       jjui
                       bun
+                      nodejs
                     ];
 
                     home.file = homeFiles // {
