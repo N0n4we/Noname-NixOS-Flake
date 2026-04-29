@@ -1068,18 +1068,7 @@
                       gitFull
                       jujutsu
                       jjui
-                      nodejs
-                      yarn
                       bun
-                      pnpm
-                      electron
-                      typescript
-                      prettier
-                      eslint
-                      sql-formatter
-                      markdownlint-cli
-                      stylelint
-                      htmlhint
                     ];
 
                     home.file = homeFiles // {
