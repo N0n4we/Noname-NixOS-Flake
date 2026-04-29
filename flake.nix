@@ -1031,7 +1031,6 @@
                       ncdu
                       wiki-tui
                       pastel
-                      rustc
                       rustup
                       wasm-pack
                       lld
