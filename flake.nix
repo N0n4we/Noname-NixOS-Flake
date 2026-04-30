@@ -1033,7 +1033,6 @@
                       rustup
                       wasm-pack
                       lld
-                      zig
                       hyprpicker
                       minio-client
                       television
@@ -1050,7 +1049,6 @@
                       prettier
                       sqlfluff
                       gopls
-                      zls
                       corefonts
                       vista-fonts
                       vista-fonts-chs
@@ -1494,7 +1492,6 @@
                             ruff.enable = true;
                             ty.enable = true;
                             gopls.enable = true;
-                            zls.enable = true;
                           };
                         };
                         lspsaga = {
