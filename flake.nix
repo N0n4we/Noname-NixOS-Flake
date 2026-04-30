@@ -538,6 +538,7 @@
                   - GEOSITE,steam@cn,DIRECT
                   - GEOSITE,category-games@cn,DIRECT
 
+                  - DOMAIN-SUFFIX,mianshiya.com,DIRECT
                   - DOMAIN,copypaste.me,DIRECT
                   - DOMAIN,mirrors.tuna.tsinghua.edu.cn,DIRECT
                   - DOMAIN-SUFFIX,feishu.cn,DIRECT
