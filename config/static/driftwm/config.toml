@@ -166,7 +166,7 @@ scale = 2.0
 "ctrl+alt+l" = 'spawn bash -ic "LockScreen.sh"'
 
 # 退出
-"mod+ctrl+shift+q" = "quit"
+"ctrl+alt+delete" = "quit"
 
 # 书签
 "mod+1" = "go-to 0 0"

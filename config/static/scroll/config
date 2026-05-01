@@ -211,6 +211,7 @@ bindsym XF86AudioStop exec bash -ic 'MediaCtrl.sh --stop'
 bindsym XF86Sleep exec systemctl suspend
 bindsym XF86Rfkill exec bash -ic 'AirplaneMode.sh'
 bindsym Ctrl+$alt+l exec bash -ic 'LockScreen.sh'
+bindsym Ctrl+$alt+Delete exit
 
 # --- 工作区 (Workspaces) ---
 bindsym $mod+q workspace next
