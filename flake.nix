@@ -22,6 +22,10 @@
     nixvim = {
       url = "github:nix-community/nixvim";
     };
+    driftwm = {
+      url = "github:N0n4we/driftwm";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -32,6 +36,7 @@
     nix-index-database,
     scroll-flake,
     nixvim,
+    driftwm,
     ...
   } @ inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -166,6 +171,8 @@
               ++ [ pkgs.stdenvNoCC ];
 
             environment.systemPackages = with pkgs; [
+              inputs.driftwm.packages.${pkgs.stdenv.hostPlatform.system}.default
+              xwayland-satellite
               gcc
               cacert
               openssl
@@ -349,6 +356,7 @@
             services.blueman.enable = true;
             services.displayManager = {
               defaultSession = "Scroll";
+              sessionPackages = [ inputs.driftwm.packages.${pkgs.stdenv.hostPlatform.system}.default ];
               ly = {
                 enable = true;
                 settings = {

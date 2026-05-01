@@ -1,0 +1,194 @@
+focus_follows_mouse = true
+
+autostart = [
+  "wl-paste --type text --watch cliphist store",
+  "wl-paste --type image --watch cliphist store",
+  "alacritty --daemon",
+  "sleep 0.5 && mako",
+  "wlsunset -s 00:00 -t 2500",
+  "fcitx5 -d --replace",
+  "blueman-applet",
+  "dbus-update-activation-environment --systemd --all",
+  "nautilus --gapplication-service",
+]
+
+[env]
+QT_QPA_PLATFORM = "wayland;xcb"
+GDK_BACKEND = "wayland,x11"
+SDL_VIDEODRIVER = "wayland"
+CLUTTER_BACKEND = "wayland"
+XDG_SESSION_TYPE = "wayland"
+ELECTRON_OZONE_PLATFORM_HINT = "wayland"
+
+[input.keyboard]
+layout = "us"
+repeat_delay = 300
+repeat_rate = 50
+
+[input.trackpad]
+tap_to_click = true
+natural_scroll = true
+accel_speed = 0.0
+
+[input.mouse]
+accel_profile = "flat"
+
+[cursor]
+size = 24
+
+[navigation]
+anchors = []
+friction = 0.94
+animation_speed = 0.3
+nudge_step = 20
+pan_step = 100.0
+
+[zoom]
+reset_on_new_window = false
+reset_on_activation = false
+
+[snap]
+enabled = true
+gap = 12.0
+
+[decorations]
+bg_color = "#6b6566"
+fg_color = "#ffffff"
+corner_radius = 10
+default_mode = "borderless"
+
+[[outputs]]
+name = "Unknown-1"
+scale = 2.0
+mode = "1200x1920"
+transform = "270"
+
+[[outputs]]
+name = "HDMI-A-1"
+scale = 2.0
+
+[keybindings]
+# 基本操作
+"mod+9" = "close-window"
+"mod+f" = "fit-window"
+"mod+shift+f" = "toggle-fullscreen"
+
+# 应用启动
+"mod+a" = "exec alacritty msg create-window -e bash -i"
+"mod+t" = "exec alacritty -e bash -i"
+"mod+b" = 'exec xdg-open "https://"'
+"mod+m" = "exec alacritty msg create-window -e btop"
+"mod+e" = "exec alacritty msg create-window -e bash -ic y"
+"mod+c" = 'exec alacritty msg create-window -e bash -ic "aichat -s $(date +%Y-%m-%d_%H:%M:%S) -r brief; exit"'
+"mod+x" = "spawn notify-send \"$(~/.local/bin/status)\""
+"mod+s" = 'exec alacritty msg create-window -e bash -ic "nix-search; exit"'
+"mod+v" = 'exec alacritty msg create-window -e bash -ic "clip; exit"'
+"mod+d" = 'exec alacritty msg create-window -e bash -ic "app; exit"'
+"mod+z" = "exec hyprpicker"
+
+# OCR
+"mod+shift+e" = 'spawn grim -g "$(slurp)" - | tesseract stdin stdout -l eng | wl-copy'
+"mod+shift+c" = 'spawn grim -g "$(slurp)" - | tesseract stdin stdout -l chi_sim | tr -d "[:space:]" | wl-copy'
+"mod+shift+d" = 'spawn grim -g "$(slurp)" - | tesseract stdin stdout -l jpn | tr -d "[:space:]" | wl-copy'
+
+# 焦点 / 导航
+"mod+h" = "center-nearest left"
+"mod+l" = "center-nearest right"
+"mod+k" = "center-nearest up"
+"mod+j" = "center-nearest down"
+"mod+left" = "center-nearest left"
+"mod+right" = "center-nearest right"
+"mod+up" = "center-nearest up"
+"mod+down" = "center-nearest down"
+"alt+tab" = "cycle-windows forward"
+"alt+shift+tab" = "cycle-windows backward"
+
+# 视口平移
+"mod+shift+h" = "pan-viewport left"
+"mod+shift+l" = "pan-viewport right"
+"mod+shift+k" = "pan-viewport up"
+"mod+shift+j" = "pan-viewport down"
+"mod+shift+left" = "pan-viewport left"
+"mod+shift+right" = "pan-viewport right"
+"mod+shift+up" = "pan-viewport up"
+"mod+shift+down" = "pan-viewport down"
+
+# 窗口平移
+"mod+ctrl+h" = "nudge-window left"
+"mod+ctrl+l" = "nudge-window right"
+"mod+ctrl+k" = "nudge-window up"
+"mod+ctrl+j" = "nudge-window down"
+"mod+ctrl+left" = "nudge-window left"
+"mod+ctrl+right" = "nudge-window right"
+"mod+ctrl+up" = "nudge-window up"
+"mod+ctrl+down" = "nudge-window down"
+
+# 缩放
+"mod+tab" = "zoom-out"
+"mod+grave" = "zoom-in"
+"mod+escape" = "zoom-in"
+"mod+0" = "zoom-reset"
+"mod+q" = "zoom-to-fit"
+"mod+w" = "zoom-to-fit-snapped"
+
+# 透明度 (unbind default zoom bindings)
+"mod+minus" = "none"
+"mod+equal" = "none"
+
+# 居中 / 主页
+"mod+space" = "center-window"
+"mod+return" = "home-toggle"
+
+# 截图 & 录屏
+"mod+shift+s" = 'spawn bash -ic "ScreenShot.sh --area"'
+"mod+shift+a" = 'spawn bash -ic "ScreenShot.sh --show"'
+"mod+ctrl+s" = 'spawn bash -ic "ScreenRecord.sh --area"'
+"mod+ctrl+a" = 'spawn bash -ic "AudioRecord.sh --all"'
+"Print" = "spawn grim - | wl-copy"
+"shift+Print" = 'spawn grim -g "$(slurp -d)" - | wl-copy'
+
+# 系统控制
+"XF86AudioRaiseVolume" = 'spawn bash -ic "Volume.sh --inc"'
+"XF86AudioLowerVolume" = 'spawn bash -ic "Volume.sh --dec"'
+"XF86AudioMute" = 'spawn bash -ic "Volume.sh --toggle"'
+"XF86AudioMicMute" = 'spawn bash -ic "Volume.sh --toggle-mic"'
+"XF86MonBrightnessUp" = 'spawn bash -ic "Brightness.sh --inc"'
+"XF86MonBrightnessDown" = 'spawn bash -ic "Brightness.sh --dec"'
+"XF86KbdBrightnessUp" = 'spawn bash -ic "BrightnessKbd.sh --inc"'
+"XF86KbdBrightnessDown" = 'spawn bash -ic "BrightnessKbd.sh --dec"'
+"XF86AudioPlay" = 'spawn bash -ic "MediaCtrl.sh --pause"'
+"XF86AudioPause" = 'spawn bash -ic "MediaCtrl.sh --pause"'
+"XF86AudioNext" = 'spawn bash -ic "MediaCtrl.sh --nxt"'
+"XF86AudioPrev" = 'spawn bash -ic "MediaCtrl.sh --prv"'
+"XF86AudioStop" = 'spawn bash -ic "MediaCtrl.sh --stop"'
+"XF86Sleep" = "spawn systemctl suspend"
+"XF86Rfkill" = 'spawn bash -ic "AirplaneMode.sh"'
+"ctrl+alt+l" = 'spawn bash -ic "LockScreen.sh"'
+
+# 退出
+"mod+ctrl+shift+q" = "quit"
+
+# 书签
+"mod+1" = "go-to 0 0"
+"mod+2" = "go-to 3500 0"
+"mod+3" = "go-to 3500 -3500"
+"mod+4" = "go-to 0 -3500"
+
+[mouse.on-window]
+"mod+left" = "pan-viewport"
+"mod+right" = "resize-window"
+"mod+middle" = "move-window"
+
+# 窗口规则
+[[window_rules]]
+app_id = "pqiv"
+decoration = "none"
+
+[[window_rules]]
+app_id = "mpv"
+decoration = "none"
+
+[[window_rules]]
+app_id = "Alacritty"
+opacity = 0.9
+blur = true
