@@ -249,6 +249,7 @@
               bluetui
               ctop
               minikube
+              k9s
               kubectl
               kubernetes-helm
               wirelesstools
