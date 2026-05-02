@@ -75,11 +75,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1777604055,
-        "narHash": "sha256-Z/ZGsjK2+bQ3UlPjrHk8dOpZIPQq7mZxRlHCUJeOVgU=",
+        "lastModified": 1777913126,
+        "narHash": "sha256-5r2XUnjRL3DG9aEcoQhIiV+lEwRnOjlOOSsB+Tvj+yk=",
         "owner": "N0n4we",
         "repo": "driftwm",
-        "rev": "b693ea2b0485a8a5ddcf4c78705f23f9363b69c1",
+        "rev": "11aeef7a2e708012c3105bb46a1f99f76dd7e3a1",
         "type": "github"
       },
       "original": {
