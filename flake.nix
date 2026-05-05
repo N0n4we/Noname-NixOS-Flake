@@ -1264,6 +1264,18 @@
                           action = "<cmd>NvimTreeToggle<CR>";
                           options.desc = "Toggle tree";
                         }
+                        {
+                          mode = "n";
+                          key = "<leader>q";
+                          action = "<cmd>q<CR>";
+                          options.desc = "Quit";
+                        }
+                        {
+                          mode = "n";
+                          key = "<leader>w";
+                          action = "<cmd>w<CR>";
+                          options.desc = "Save";
+                        }
                       ];
                       plugins = {
                         cmp = {
