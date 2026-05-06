@@ -260,20 +260,7 @@
               sysstat
               nethogs
               busybox
-              (python313.withPackages (python-pkgs:
-                with python-pkgs; [
-                  requests
-                  numpy
-                  pandas
-                  pillow
-                  prompt-toolkit
-                  pyperclip
-                  moviepy
-                  uvicorn
-                  fastapi
-                  websockets
-                  faker
-                ]))
+              python3
               uv
             ];
             environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
@@ -295,6 +282,10 @@
               PATH = lib.mkAfter [ "${config.users.users.noname.home}/.npm-global/bin" "${config.users.users.noname.home}/.bun/bin" ];
               ELECTRON_OVERRIDE_DIST_PATH = "${pkgs.electron}/bin";
               _ZO_DOCTOR = 0;
+              PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers}";
+              PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
+              PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
+              VIRTUAL_ENV_DISABLE_PROMPT = "1";
             };
 
             programs.scroll = {

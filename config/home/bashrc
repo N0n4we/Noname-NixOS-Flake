@@ -55,3 +55,5 @@ eval "$(atuin init bash)"
 [[ ! ''${BLE_VERSION-} ]] || ble-attach
 
 export PATH="$HOME/.local/bin:$PATH"
+
+[ -f "$HOME/.local/share/venv/bin/activate" ] && source "$HOME/.local/share/venv/bin/activate"
