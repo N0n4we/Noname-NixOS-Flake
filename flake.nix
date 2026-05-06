@@ -1017,7 +1017,6 @@
                     };
                     programs.pqiv.enable = true;
                     programs.btop.enable = true;
-                    programs.vesktop.enable = true;
                     programs.zathura = {
                       enable = true;
                       options.selection-clipboard = "clipboard";
