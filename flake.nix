@@ -832,6 +832,7 @@
                       losslesscut-bin
                       glow
                       vivify
+                      basalt
                       wev
                       termdown
                       aichat
