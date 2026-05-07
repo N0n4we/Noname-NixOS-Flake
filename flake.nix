@@ -833,6 +833,7 @@
                       glow
                       vivify
                       basalt
+                      vnote
                       wev
                       termdown
                       aichat
