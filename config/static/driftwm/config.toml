@@ -181,14 +181,6 @@ scale = 2.0
 
 # 窗口规则
 [[window_rules]]
-app_id = "pqiv"
-decoration = "none"
-
-[[window_rules]]
-app_id = "mpv"
-decoration = "none"
-
-[[window_rules]]
 app_id = "Alacritty"
 opacity = 0.9
 blur = true
