@@ -286,6 +286,7 @@
               PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
               PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
               VIRTUAL_ENV_DISABLE_PROMPT = "1";
+              PI_SKIP_VERSION_CHECK = "1";
             };
 
             programs.scroll = {
