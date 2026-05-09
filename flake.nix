@@ -1124,6 +1124,8 @@
                         breakindent = true;
                         showbreak = "↪ ";
                         ambiwidth = "single";
+                        ignorecase = true;
+                        smartcase = true;
                       };
                       autoCmd = [
                         {
