@@ -2,21 +2,17 @@
   description = "NixOS configuration for noname";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
-      url = "github:danth/stylix";
+      url = "github:danth/stylix/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    scroll-flake = {
-      url = "github:AsahiRocks/scroll-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
@@ -34,7 +30,6 @@
     home-manager,
     stylix,
     nix-index-database,
-    scroll-flake,
     nixvim,
     driftwm,
     ...
@@ -49,7 +44,6 @@
               stylix.nixosModules.stylix
               home-manager.nixosModules.home-manager
               nix-index-database.nixosModules.default
-              scroll-flake.nixosModules.default
               ./secret.nix
             ];
 
@@ -220,7 +214,6 @@
               brightnessctl
               libgtop
               dart-sass
-              swaybg
               wl-clipboard
               cliphist
               libnotify
@@ -289,22 +282,6 @@
               PI_SKIP_VERSION_CHECK = "1";
             };
 
-            programs.scroll = {
-              enable = true;
-              package = inputs.scroll-flake.packages.${pkgs.stdenv.hostPlatform.system}.scroll-stable;
-              extraSessionCommands = ''
-                export QT_QPA_PLATFORM="wayland;xcb"
-                export GDK_BACKEND="wayland,x11"
-                export SDL_VIDEODRIVER=wayland
-                export CLUTTER_BACKEND=wayland
-
-                export XDG_CURRENT_DESKTOP=scroll
-                export XDG_SESSION_TYPE=wayland
-                export XDG_SESSION_DESKTOP=scroll
-
-                export ELECTRON_OZONE_PLATFORM_HINT=wayland
-              '';
-            };
             programs.nix-ld.enable = true;
             programs.mtr.enable = true;
             programs.dconf.enable = true;
@@ -348,7 +325,6 @@
             };
             services.blueman.enable = true;
             services.displayManager = {
-              defaultSession = "Scroll";
               sessionPackages = [ inputs.driftwm.packages.${pkgs.stdenv.hostPlatform.system}.default ];
               ly = {
                 enable = true;
@@ -823,18 +799,18 @@
 
                     home.username = "noname";
                     home.homeDirectory = "/home/noname";
-                    home.stateVersion = "26.05";
+                    home.stateVersion = "25.11";
                     home.enableNixpkgsReleaseCheck = false;
                     home.packages = with pkgs; [
-                      wechat
                       feishu
+                      wechat
                       telegram-desktop
                       reaper
                       losslesscut-bin
                       glow
                       vivify
                       basalt
-                      vnote
+                      obsidian
                       wev
                       termdown
                       aichat
@@ -860,9 +836,7 @@
                       translate-shell
                       wf-recorder
                       slides
-                      sqlit-tui
                       libreoffice-still
-                      kiro-cli
                       cronie
                       chafa
                       handlr

@@ -14,14 +14,14 @@ shift || true
 query="$*"
 
 case "$cmd" in
-  pkg) url="https://search.nixos.org/packages?channel=unstable&query=" ;;
-  opt) url="https://search.nixos.org/options?channel=unstable&query=" ;;
-  hm)  url="https://home-manager-options.extranix.com/?release=master&query=" ;;
+  pkg) url="https://search.nixos.org/packages?query=" ;;
+  opt) url="https://search.nixos.org/options?query=" ;;
+  hm)  url="https://home-manager-options.extranix.com/?release=release-25.11&query=" ;;
   sty) url="https://nix-community.github.io/stylix/configuration.html?search=" ;;
   mn)  url="https://mynixos.com/search?q=" ;;
   *)
     query="$cmd $query"
-    url="https://search.nixos.org/packages?channel=unstable&query="
+    url="https://search.nixos.org/packages?query="
     ;;
 esac
 
