@@ -166,6 +166,7 @@
 
             environment.systemPackages = with pkgs; [
               inputs.driftwm.packages.${pkgs.stdenv.hostPlatform.system}.default
+              niri
               xwayland-satellite
               gcc
               cacert
@@ -293,7 +294,13 @@
             programs.steam.enable = true;
             programs.nix-index-database.comma.enable = true;
 
+            systemd.packages = [ pkgs.niri ];
+            services.dbus.packages = [ pkgs.nautilus ];
+            services.xserver.desktopManager.runXdgAutostartIfNone = true;
+
             security.rtkit.enable = true;
+            security.polkit.enable = true;
+            security.pam.services.swaylock = { };
             security.pam.loginLimits = [
               { domain = "*"; item = "nofile"; type = "soft"; value = "4096"; }
               { domain = "*"; item = "nofile"; type = "hard"; value = "4096"; }
@@ -325,7 +332,10 @@
             };
             services.blueman.enable = true;
             services.displayManager = {
-              sessionPackages = [ inputs.driftwm.packages.${pkgs.stdenv.hostPlatform.system}.default ];
+              sessionPackages = [
+                inputs.driftwm.packages.${pkgs.stdenv.hostPlatform.system}.default
+                pkgs.niri
+              ];
               ly = {
                 enable = true;
                 settings = {
@@ -734,10 +744,12 @@
             xdg.portal = {
               enable = true;
               wlr.enable = true;
+              configPackages = [ pkgs.niri ];
               extraPortals = with pkgs; [
                 xdg-desktop-portal
                 xdg-desktop-portal-wlr
                 xdg-desktop-portal-gtk
+                xdg-desktop-portal-gnome
               ];
             };
 
@@ -970,13 +982,13 @@
                         mgr.ratio = [ 0 2 3 ];
                         opener = {
                           play = [
-                            { run = "handlr open %s1"; desc = "Play"; for = "linux"; orphan = true; }
+                            { run = "handlr open \"$@\""; desc = "Play"; for = "linux"; orphan = true; }
                           ];
                           open = [
-                            { run = "handlr open %s1"; desc = "Open"; for = "linux"; orphan = true; }
+                            { run = "handlr open \"$@\""; desc = "Open"; for = "linux"; orphan = true; }
                           ];
                           reveal = [
-                            { run = "handlr reveal %d1"; desc = "Reveal"; for = "linux"; orphan = true; }
+                            { run = "handlr reveal \"$@\""; desc = "Reveal"; for = "linux"; orphan = true; }
                           ];
                         };
                       };
