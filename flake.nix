@@ -778,6 +778,7 @@
             home-manager = {
               useUserPackages = true;
               extraSpecialArgs = { inherit inputs; };
+              backupFileExtension = "${builtins.substring 0 14 self.lastModifiedDate}.bak";
               users.noname.imports = [
                 inputs.stylix.homeModules.stylix
                 inputs.nixvim.homeModules.nixvim
