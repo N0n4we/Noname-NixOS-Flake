@@ -784,7 +784,6 @@
                 ({ config, lib, pkgs, ... }:
                   let
                     homeDir = ./config/home;
-                    staticDir = ./config/static;
                     dynamicDir = ./config/dynamic;
                     localBinDir = ./config/local-bin;
 
@@ -792,10 +791,6 @@
                       source = homeDir + "/${name}";
                     }) (lib.filterAttrs (_: type: type == "regular") (builtins.readDir homeDir));
 
-
-                    staticConfigFiles = lib.mapAttrs' (name: _: lib.nameValuePair name {
-                      source = staticDir + "/${name}";
-                    }) (lib.filterAttrs (_: type: type == "directory") (builtins.readDir staticDir));
 
                     dynamicConfigFiles = lib.mapAttrs' (name: _: lib.nameValuePair name {
                       source = dynamicDir + "/${name}";
@@ -931,7 +926,7 @@
                         "x-scheme-handler/unknown" = "firefox.desktop";
                       };
                     };
-                    xdg.configFile = (staticConfigFiles // dynamicConfigFiles) // {
+                    xdg.configFile = (dynamicConfigFiles) // {
                       "mimeapps.list".force = true;
                     };
 
