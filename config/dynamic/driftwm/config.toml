@@ -55,7 +55,7 @@ gap = 12.0
 bg_color = "#6b6566"
 fg_color = "#ffffff"
 corner_radius = 10
-default_mode = "borderless"
+default_mode = "minimal"
 
 [[outputs]]
 name = "Unknown-1"
