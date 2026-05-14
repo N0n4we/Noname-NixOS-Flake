@@ -78,7 +78,6 @@ scale = 2.0
 "mod+t" = "exec alacritty -e bash -i"
 "mod+b" = 'exec xdg-open "https://"'
 "mod+m" = "exec alacritty msg create-window -e btop"
-"mod+e" = "exec alacritty msg create-window -e bash -ic y"
 "mod+c" = 'exec alacritty msg create-window -e bash -ic "aichat -s $(date +%Y-%m-%d_%H:%M:%S) -r brief; exit"'
 "mod+x" = "spawn notify-send \"$(~/.local/bin/status)\""
 "mod+s" = 'exec alacritty msg create-window -e bash -ic "nix-search; exit"'
@@ -130,14 +129,12 @@ scale = 2.0
 "mod+0" = "zoom-reset"
 "mod+q" = "zoom-to-fit"
 "mod+w" = "zoom-to-fit-snapped"
+"mod+e" = "center-window"
+"mod+r" = "home-toggle"
 
 # 透明度 (unbind default zoom bindings)
 "mod+minus" = "none"
 "mod+equal" = "none"
-
-# 居中 / 主页
-"mod+space" = "center-window"
-"mod+return" = "home-toggle"
 
 # 截图 & 录屏
 "mod+shift+s" = 'spawn bash -ic "ScreenShot.sh --area"'
