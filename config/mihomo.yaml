@@ -106,6 +106,7 @@ proxy-groups:
     lazy: true
     use:
       - sub2
+    filter: "AnyTLS"
     exclude-filter: "香港|HongKong"
   - name: VLESS
     type: url-test
