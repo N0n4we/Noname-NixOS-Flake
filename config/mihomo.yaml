@@ -121,9 +121,10 @@ rules:
 
   - DOMAIN,www.apple.com,SELECT
   - DOMAIN,browserleaks.com,SELECT
-  - IP-CIDR,47.110.248.69/8,DIRECT,no-resolve
-  - IP-CIDR,101.37.64.91/8,DIRECT,no-resolve
-  - IP-CIDR,101.37.156.175/8,DIRECT,no-resolve
+  - IP-CIDR,47.110.248.69/32,DIRECT,no-resolve
+  - IP-CIDR,101.37.64.91/32,DIRECT,no-resolve
+  - IP-CIDR,101.37.156.175/32,DIRECT,no-resolve
+  - IP-CIDR,45.137.181.152/32,DIRECT,no-resolve
 
   - GEOSITE,cn,DIRECT
   - GEOSITE,private,DIRECT
