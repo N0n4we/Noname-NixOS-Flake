@@ -254,6 +254,7 @@
               sysstat
               nethogs
               busybox
+              tmux
               python3
               uv
             ];
