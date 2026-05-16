@@ -166,7 +166,6 @@
 
             environment.systemPackages = with pkgs; [
               inputs.driftwm.packages.${pkgs.stdenv.hostPlatform.system}.default
-              niri
               xwayland-satellite
               gcc
               cacert
@@ -262,6 +261,10 @@
             environment.etc."machine-id".source = "/run/machine-id";
             environment.variables = {
               EDITOR = "nvim";
+              GTK_IM_MODULE = lib.mkForce "fcitx";
+              QT_IM_MODULE = lib.mkForce "fcitx";
+              SDL_IM_MODULE = lib.mkForce "fcitx";
+              XMODIFIERS = lib.mkForce "@im=fcitx";
             };
             environment.sessionVariables = {
               INPUT_METHOD = "fcitx";
@@ -295,13 +298,8 @@
             programs.steam.enable = true;
             programs.nix-index-database.comma.enable = true;
 
-            systemd.packages = [ pkgs.niri ];
-            services.dbus.packages = [ pkgs.nautilus ];
-            services.xserver.desktopManager.runXdgAutostartIfNone = true;
-
             security.rtkit.enable = true;
             security.polkit.enable = true;
-            security.pam.services.swaylock = { };
             security.pam.loginLimits = [
               { domain = "*"; item = "nofile"; type = "soft"; value = "4096"; }
               { domain = "*"; item = "nofile"; type = "hard"; value = "4096"; }
@@ -332,20 +330,12 @@
               wireplumber.enable = true;
             };
             services.blueman.enable = true;
-            services.displayManager = {
-              sessionPackages = [
-                inputs.driftwm.packages.${pkgs.stdenv.hostPlatform.system}.default
-                pkgs.niri
-              ];
-              ly = {
-                enable = true;
-                settings = {
-                  clock = "%H:%M:%S";
-                  bigclock = "en";
-                  animation = "colormix";
-                };
-              };
-            };
+            services.xserver.enable = true;
+            services.displayManager.gdm.enable = true;
+            services.desktopManager.gnome.enable = true;
+            services.displayManager.sessionPackages = [
+              inputs.driftwm.packages.${pkgs.stdenv.hostPlatform.system}.default
+            ];
             services.gvfs.enable = true;
             services.gnome.glib-networking.enable = true;
             services.gnome.gnome-keyring.enable = true;
@@ -745,12 +735,10 @@
             xdg.portal = {
               enable = true;
               wlr.enable = true;
-              configPackages = [ pkgs.niri ];
               extraPortals = with pkgs; [
                 xdg-desktop-portal
                 xdg-desktop-portal-wlr
                 xdg-desktop-portal-gtk
-                xdg-desktop-portal-gnome
               ];
             };
 
@@ -890,7 +878,26 @@
                       jjui
                       bun
                       nodejs
+                      gnomeExtensions.gnome-bedtime
+                      gnomeExtensions.kimpanel
                     ];
+
+                    dconf.settings = {
+                      "org/gnome/shell" = {
+                        enabled-extensions = [
+                          "user-theme@gnome-shell-extensions.gcampax.github.com"
+                          "gnomebedtime@ionutbortis.gmail.com"
+                          "kimpanel@kde.org"
+                        ];
+                      };
+                      "org/gnome/shell/extensions/bedtime-mode" = {
+                        bedtime-mode-active = true;
+                        color-tone-preset = "amber";
+                        color-tone-factor = 50;
+                        automatic-schedule = false;
+                        ondemand-button-location = "menu";
+                      };
+                    };
 
                     home.file = homeFiles // {
                       ".local/bin" = {
@@ -931,6 +938,8 @@
                     xdg.configFile = (dynamicConfigFiles) // {
                       "mimeapps.list".force = true;
                     };
+
+
 
                     programs.home-manager.enable = true;
                     programs.gh = {
