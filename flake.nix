@@ -15,9 +15,6 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim = {
-      url = "github:nix-community/nixvim";
-    };
     driftwm = {
       url = "github:N0n4we/driftwm";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,7 +27,6 @@
     home-manager,
     stylix,
     nix-index-database,
-    nixvim,
     driftwm,
     ...
   } @ inputs: {
@@ -254,13 +250,14 @@
               nethogs
               busybox
               tmux
+              vim-full
               python3
               uv
             ];
             environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
             environment.etc."machine-id".source = "/run/machine-id";
             environment.variables = {
-              EDITOR = "nvim";
+              EDITOR = "vim";
               GTK_IM_MODULE = lib.mkForce "fcitx";
               QT_IM_MODULE = lib.mkForce "fcitx";
               SDL_IM_MODULE = lib.mkForce "fcitx";
@@ -779,7 +776,6 @@
               backupFileExtension = "${builtins.substring 0 14 self.lastModifiedDate}.bak";
               users.noname.imports = [
                 inputs.stylix.homeModules.stylix
-                inputs.nixvim.homeModules.nixvim
                 ({ config, lib, pkgs, ... }:
                   let
                     homeDir = ./config/home;
@@ -795,6 +791,13 @@
                       source = dynamicDir + "/${name}";
                       recursive = true;
                     }) (lib.filterAttrs (_: type: type == "directory") (builtins.readDir dynamicDir));
+
+                    vimPluginDir = ./config/vim-plugin;
+                    vimPluginFiles = let
+                      plugins = lib.filterAttrs (_: type: type == "directory") (builtins.readDir vimPluginDir);
+                    in lib.mapAttrs' (name: _: lib.nameValuePair ".vim/pack/local/start/${name}" {
+                      source = vimPluginDir + "/${name}";
+                    }) plugins;
                   in
                   {
                     nixpkgs.config = {
@@ -908,7 +911,7 @@
                       };
                     };
 
-                    home.file = homeFiles // {
+                    home.file = homeFiles // vimPluginFiles // {
                       ".local/bin" = {
                         source = localBinDir;
                         recursive = true;
@@ -933,7 +936,7 @@
                     xdg.mimeApps = {
                       enable = true;
                       defaultApplications = {
-                        "text/*" = "neovide.desktop";
+                        "text/*" = "gvim.desktop";
                         "image/*" = "pqiv.desktop";
                         "video/*" = "mpv.desktop";
                         "audio/*" = "mpv.desktop";
@@ -1109,291 +1112,6 @@
                         ];
                       };
                     };
-                    programs.nixvim = {
-                      enable = true;
-                      globals.mapleader = " ";
-                      opts = {
-                        number = false;
-                        relativenumber = false;
-                        clipboard = "unnamedplus";
-                        wrap = true;
-                        linebreak = true;
-                        expandtab = true;
-                        tabstop = 4;
-                        shiftwidth = 4;
-                        softtabstop = 4;
-                        breakindent = true;
-                        showbreak = "↪ ";
-                        ambiwidth = "single";
-                        ignorecase = true;
-                        smartcase = true;
-                      };
-                      autoCmd = [
-                        {
-                          event = [ "VimEnter" ];
-                          pattern = [ "*" ];
-                          command = "lua vim.schedule(function() vim.opt.laststatus = 0 end)";
-                        }
-                        {
-                          event = [ "BufWritePre" ];
-                          pattern = [ "*" ];
-                          command = "%s/\\s\\+$//e";
-                        }
-                        {
-                          event = [ "BufWritePre" ];
-                          pattern = [ "*" ];
-                          command = "%s/\\n\\+\\%$//e";
-                        }
-                      ];
-                      keymaps = [
-                        {
-                          mode = "n";
-                          key = "<Tab>";
-                          action = "<cmd>bn<CR>";
-                          options.desc = "Next buffer";
-                        }
-                        {
-                          mode = "n";
-                          key = "<S-Tab>";
-                          action = "<cmd>bp<CR>";
-                          options.desc = "Previous buffer";
-                        }
-                        {
-                          mode = "n";
-                          key = "<leader>x";
-                          action = "<cmd>Bdelete<CR>";
-                          options.desc = "Close buffer";
-                        }
-                        {
-                          mode = "n";
-                          key = "<leader>X";
-                          action = "<cmd>Bdelete!<CR>";
-                          options.desc = "Force close buffer";
-                        }
-                        {
-                          mode = [ "n" "v" ];
-                          key = "<A-w>";
-                          action = "<cmd>set wrap!<CR>";
-                          options.desc = "Toggle soft wrap";
-                        }
-                        {
-                          mode = [ "n" "v" ];
-                          key = "<A-i>";
-                          action = "<cmd>let &laststatus = (&laststatus == 0 ? 2 : 0)<CR>";
-                          options.desc = "Toggle lualine";
-                        }
-                        {
-                          mode = [ "n" "v" ];
-                          key = "<A-a>";
-                          action = "<cmd>!alacritty msg create-window --working-directory $(pwd)<CR>";
-                          options.desc = "Open new Alacritty window";
-                        }
-                        {
-                          mode = [ "n" "v" ];
-                          key = "<A-s>";
-                          action = "<cmd>!alacritty msg create-window --working-directory $(pwd) -e bash -ic y<CR>";
-                          options.desc = "Open new Yazi(Alacritty) window";
-                        }
-                        {
-                          mode = "n";
-                          key = "<leader>d";
-                          action = "<cmd>lua vim.diagnostic.open_float()<CR>";
-                          options.desc = "Show diagnostic";
-                        }
-                        {
-                          mode = "n";
-                          key = "[d";
-                          action = "<cmd>lua vim.diagnostic.goto_prev()<CR>";
-                          options.desc = "Previous diagnostic";
-                        }
-                        {
-                          mode = "n";
-                          key = "]d";
-                          action = "<cmd>lua vim.diagnostic.goto_next()<CR>";
-                          options.desc = "Next diagnostic";
-                        }
-                        {
-                          mode = "n";
-                          key = "<leader>y";
-                          action = "<cmd>Yazi<CR>";
-                          options.desc = "Open Yazi";
-                        }
-                        {
-                          mode = "n";
-                          key = "<leader>f";
-                          action = "<cmd>Telescope find_files<CR>";
-                          options.desc = "Find files";
-                        }
-                        {
-                          mode = "n";
-                          key = "<leader>/";
-                          action = "<cmd>Telescope live_grep<CR>";
-                          options.desc = "Live grep";
-                        }
-                        {
-                          mode = "n";
-                          key = "<leader>b";
-                          action = "<cmd>Telescope buffers<CR>";
-                          options.desc = "Find buffers";
-                        }
-                        {
-                          mode = [ "n" "x" ];
-                          key = "s";
-                          action = "<cmd>lua require('flash').jump()<CR>";
-                          options.desc = "Flash jump";
-                        }
-                        {
-                          mode = "n";
-                          key = "<C-c>";
-                          action = "<Plug>(comment_toggle_linewise_current)";
-                          options.desc = "Toggle comment";
-                        }
-                        {
-                          mode = "v";
-                          key = "<C-c>";
-                          action = "<Plug>(comment_toggle_linewise_visual)";
-                          options.desc = "Toggle comment";
-                        }
-                        {
-                          mode = "n";
-                          key = "<leader>e";
-                          action = "<cmd>NvimTreeToggle<CR>";
-                          options.desc = "Toggle tree";
-                        }
-                        {
-                          mode = "n";
-                          key = "<leader>q";
-                          action = "<cmd>q<CR>";
-                          options.desc = "Quit";
-                        }
-                        {
-                          mode = "n";
-                          key = "<leader>w";
-                          action = "<cmd>w<CR>";
-                          options.desc = "Save";
-                        }
-                      ];
-                      plugins = {
-                        cmp = {
-                          enable = true;
-                          mapping = {
-                            "<C-n>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
-                            "<C-p>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-                            "<C-e>" = "cmp.mapping.abort()";
-                          };
-                          settings = {
-                            completion = {
-                              completeopt = "menu,menuone,noinsert";
-                            };
-                            sources = [
-                              { name = "nvim_lsp"; }
-                              { name = "path"; }
-                              { name = "buffer"; }
-                            ];
-                          };
-                          cmp-nvim-lsp.enable = true;
-                          cmp-path.enable = true;
-                          cmp-buffer.enable = true;
-                        };
-                        visual-multi = {
-                          enable = true;
-                          settings = {
-                            maps = {
-                              "Find Under" = "<C-n>";
-                              "Add Cursor Down" = "<M-j>";
-                              "Add Cursor Up" = "<M-k>";
-                              "Select All" = "<C-m>";
-                              "Visual All" = "<C-m>";
-                              "Switch Mode" = "v";
-                              "Goto Prev" = "<C-k>";
-                              "Goto Next" = "<C-j>";
-                            };
-                            show_warnings = 1;
-                            silent_exit = 0;
-                          };
-                        };
-                        flash.enable = true;
-                        yazi.enable = true;
-                        web-devicons.enable = true;
-                        which-key.enable = true;
-                        gitsigns = {
-                          enable = true;
-                          settings = {
-                            signs = {
-                              add.text = "▌";
-                              change.text = "▌";
-                              changedelete.text = "▌";
-                            };
-                            current_line_blame = false;
-                          };
-                        };
-                        guess-indent.enable = true;
-                        telescope.enable = true;
-                        lualine = {
-                          enable = true;
-                          settings.sections = {
-                            lualine_a = [ "mode" ];
-                            lualine_b = [ "diff" ];
-                            lualine_c = [ "filename" ];
-                            lualine_x = [ "encoding" ];
-                            lualine_y = [ "progress" ];
-                            lualine_z = [ "location" ];
-                          };
-                        };
-                        lsp = {
-                          enable = true;
-                          servers = {
-                            ruff.enable = true;
-                            ty.enable = true;
-                            gopls.enable = true;
-                          };
-                        };
-                        lspsaga = {
-                          enable = true;
-                          settings.lightbulb.enable = false;
-                        };
-                        nvim-surround.enable = true;
-                        comment.enable = true;
-                        treesitter = {
-                          enable = true;
-                          settings.highlight.enable = true;
-                        };
-                        nvim-tree = {
-                          enable = true;
-                          settings = {
-                            renderer.group_empty = true;
-                            git.enable = false;
-                          };
-                        };
-                        bufdelete.enable = true;
-                        oil.enable = true;
-                        smear-cursor = {
-                          enable = false;
-                          settings = {
-                            cursor_color = "#ff5a1f";
-                            particles_enabled = true;
-                            stiffness = 0.35;
-                            trailing_stiffness = 0.12;
-                            trailing_exponent = 6;
-                            damping = 0.72;
-                            gradient_exponent = 1.5;
-                            gamma = 1;
-                            never_draw_over_target = true;
-                            hide_target_hack = true;
-                            particle_spread = 1.5;
-                            particles_per_second = 800;
-                            particles_per_length = 50;
-                            particle_max_lifetime = 800;
-                            particle_max_initial_velocity = 25;
-                            particle_velocity_from_cursor = 0.6;
-                            particle_damping = 0.08;
-                            particle_gravity = -40;
-                            min_distance_emit_particles = 0;
-                          };
-                        };
-                      };
-                    };
-                    programs.neovide.enable = true;
 
                     services.gpg-agent = {
                       enable = true;
@@ -1513,8 +1231,6 @@
                         zathura.enable = true;
                         mako.enable = true;
                         fcitx5.enable = true;
-                        nixvim.enable = true;
-                        neovide.enable = true;
                       };
                       polarity = "dark";
                       base16Scheme = "${pkgs.base16-schemes}/share/themes/terracotta-dark.yaml";
