@@ -813,6 +813,7 @@
                     home.packages = with pkgs; [
                       feishu
                       wechat
+                      qq
                       telegram-desktop
                       reaper
                       losslesscut-bin
