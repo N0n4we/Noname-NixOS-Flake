@@ -56,6 +56,7 @@ bg_color = "#6b6566"
 fg_color = "#ffffff"
 corner_radius = 10
 default_mode = "minimal"
+shadow = false
 
 [[outputs]]
 name = "Unknown-1"
