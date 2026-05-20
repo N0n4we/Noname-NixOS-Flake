@@ -237,7 +237,7 @@
               bluez-tools
               bluetui
               ctop
-              nerdctl
+              k3d
               k9s
               kubectl
               kubernetes-helm
@@ -262,9 +262,6 @@
               QT_IM_MODULE = lib.mkForce "fcitx";
               SDL_IM_MODULE = lib.mkForce "fcitx";
               XMODIFIERS = lib.mkForce "@im=fcitx";
-              CONTAINERD_ADDRESS = "unix:///run/k3s/containerd/containerd.sock";
-              CONTAINERD_NAMESPACE = "k8s.io";
-              KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";
             };
             environment.sessionVariables = {
               INPUT_METHOD = "fcitx";
@@ -315,6 +312,7 @@
                 "power"
                 "adbusers"
                 "i2c"
+                "docker"
               ];
               shell = pkgs.bash;
             };
@@ -729,14 +727,7 @@
             services.qemuGuest.enable = false;
             services.xserver.videoDrivers = [ ];
 
-            services.k3s = {
-              enable = true;
-              role = "server";
-              extraFlags = [
-                "--write-kubeconfig-mode=0644"
-                "--node-name=nonamek3s"
-              ];
-            };
+            virtualisation.docker.enable = true;
 
             xdg.portal = {
               enable = true;
