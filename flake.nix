@@ -815,7 +815,6 @@
                       wev
                       termdown
                       aichat
-                      baidupcs-go
                       imagemagick
                       glava
                       webcamoid
