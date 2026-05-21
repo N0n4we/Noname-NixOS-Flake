@@ -623,6 +623,38 @@
                 done
               '';
             };
+            systemd.services.cleanup-orphaned-journals = {
+              description = "Remove journal directories from previous machine-ids";
+              serviceConfig = {
+                Type = "oneshot";
+                User = "root";
+              };
+              path = with pkgs; [ coreutils bash ];
+              script = ''
+                CURRENT_ID=$(cat /run/machine-id 2>/dev/null || cat /etc/machine-id 2>/dev/null || true)
+                if [ -z "$CURRENT_ID" ]; then
+                  echo "Error: Cannot determine current machine-id. Aborting to prevent accidental deletion." >&2
+                  exit 1
+                fi
+                shopt -s nullglob
+                for d in /var/log/journal/*; do
+                  [ -d "$d" ] || continue
+                  name=''${d##*/}
+                  [ "$name" = "$CURRENT_ID" ] && continue
+                  [ "$name" = "remote" ] && continue
+                  echo "Removing orphaned journal dir: $name"
+                  rm -rf "$d"
+                done
+              '';
+            };
+            systemd.timers.cleanup-orphaned-journals = {
+              description = "Clean orphaned journal directories periodically";
+              timerConfig = {
+                OnBootSec = "10min";
+                OnUnitActiveSec = "12h";
+              };
+              wantedBy = [ "timers.target" ];
+            };
             systemd.services.mihomo-sub = {
               description = "Update Mihomo subscription files";
               wantedBy = [ "multi-user.target" ];
