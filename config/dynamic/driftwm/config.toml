@@ -62,7 +62,7 @@ shadow = false
 name = "Unknown-1"
 scale = 2.0
 mode = "1200x1920"
-transform = "270"
+# transform = "270"
 
 [[outputs]]
 name = "HDMI-A-1"
