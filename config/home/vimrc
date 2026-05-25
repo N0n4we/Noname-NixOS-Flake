@@ -1,5 +1,5 @@
 let mapleader = " "
-set clipboard=unnamedplus
+set clipboard^=unnamedplus
 set nocompatible
 syntax on
 filetype plugin indent on
@@ -21,6 +21,7 @@ set smartcase
 set shortmess+=I
 set laststatus=0
 
+autocmd VimEnter * call getreg('+')
 autocmd BufWritePre * %s/\s\+$//e
 autocmd BufWritePre * %s/\n\+\%$//e
 
