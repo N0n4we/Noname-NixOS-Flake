@@ -62,7 +62,7 @@
             };
             boot.kernelModules = [ "kvm-intel" "tcp_bbr" ];
             boot.extraModulePackages = [ ];
-            boot.kernelParams = [ "fbcon=rotate:1" "consoleblank=0" "button.lid_init_state=open" ];
+            boot.kernelParams = [ "fbcon=rotate:0" "consoleblank=0" "button.lid_init_state=open" ];
             boot.blacklistedKernelModules = [ "intel_ish_ipc" ];
             boot.kernelPackages = pkgs.linuxPackages_latest;
             boot.loader.systemd-boot.enable = true;
