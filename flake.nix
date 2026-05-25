@@ -130,7 +130,7 @@
               powerOnBoot = true;
               settings = {
                 General = {
-                  ControllerMode = "bredr";
+                  ControllerMode = "dual";
                   FastConnectable = true;
                   Experimental = "true";
                 };
