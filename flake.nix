@@ -842,7 +842,6 @@
                       losslesscut-bin
                       glow
                       vivify
-                      basalt
                       obsidian
                       wev
                       termdown
@@ -874,7 +873,6 @@
                       handlr
                       jetbrains.idea-oss
                       ncdu
-                      wiki-tui
                       pastel
                       rustup
                       wasm-pack
