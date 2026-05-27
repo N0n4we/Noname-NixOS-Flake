@@ -233,6 +233,7 @@
               wiremix
               playerctl
               wireplumber
+              pulseaudio
               bluez
               bluez-tools
               bluetui
