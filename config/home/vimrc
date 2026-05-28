@@ -40,6 +40,9 @@ nnoremap <leader>Q :q!<CR>
 set completeopt=menu,menuone,noselect
 set complete=.,w,b,u,t,i
 
+let g:EasyMotion_do_mapping = 0
+nmap s <Plug>(easymotion-s2)
+let g:EasyMotion_smartcase = 1
 
 " sleuth.vim - Heuristically set buffer options
 " Maintainer:   Tim Pope <http://tpo.pe/>
