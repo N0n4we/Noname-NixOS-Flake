@@ -835,7 +835,6 @@
                     home.stateVersion = "25.11";
                     home.enableNixpkgsReleaseCheck = false;
                     home.packages = with pkgs; [
-                      feishu
                       wechat
                       qq
                       telegram-desktop
