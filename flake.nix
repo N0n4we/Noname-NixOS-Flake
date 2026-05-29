@@ -16,7 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     driftwm = {
-      url = "github:N0n4we/driftwm";
+      url = "github:malbiruk/driftwm";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -332,7 +332,12 @@
             services.displayManager.gdm.enable = true;
             services.desktopManager.gnome.enable = true;
             services.displayManager.sessionPackages = [
-              inputs.driftwm.packages.${pkgs.stdenv.hostPlatform.system}.default
+              (inputs.driftwm.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
+                postInstall = (old.postInstall or "") + ''
+                  substituteInPlace $out/share/wayland-sessions/driftwm.desktop \
+                    --replace-fail 'Exec=driftwm-session' 'Exec=driftwm'
+                '';
+              }))
             ];
             services.gvfs.enable = true;
             services.gnome.glib-networking.enable = true;

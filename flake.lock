@@ -75,15 +75,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1779436071,
-        "narHash": "sha256-wB8fusbZ/EWMAsFaoK2bf+A22AgPxNCmbYSK2aR/SnE=",
-        "owner": "N0n4we",
+        "lastModified": 1780005263,
+        "narHash": "sha256-pc2Ow7lVnPBER7u8AFR+Lxl+TxB2cZ2uZp72ilhkNvg=",
+        "owner": "malbiruk",
         "repo": "driftwm",
-        "rev": "c21cd7a5611664713f14527b22920da88208ecd3",
+        "rev": "11dc5c37f437a173a64edbc4109b78f312f8e53f",
         "type": "github"
       },
       "original": {
-        "owner": "N0n4we",
+        "owner": "malbiruk",
         "repo": "driftwm",
         "type": "github"
       }
@@ -203,11 +203,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1779467186,
-        "narHash": "sha256-nOesoDCiXcUftqbRBMz9tt4blI5PvljMWbm3kuCA+0s=",
+        "lastModified": 1779796641,
+        "narHash": "sha256-ZsIrKmhp4vbBXoXXmR/tBXA/UCsAQiJL9vsgZEduhVY=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b77b3de8775677f84492abe84635f87b0e153f0f",
+        "rev": "25f538306313eae3927264466c70d7001dcea1df",
         "type": "github"
       },
       "original": {
