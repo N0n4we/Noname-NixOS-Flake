@@ -2,13 +2,13 @@
   description = "NixOS configuration for noname";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
-      url = "github:danth/stylix/release-25.11";
+      url = "github:danth/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-index-database = {
@@ -332,12 +332,7 @@
             services.displayManager.gdm.enable = true;
             services.desktopManager.gnome.enable = true;
             services.displayManager.sessionPackages = [
-              (inputs.driftwm.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
-                postInstall = (old.postInstall or "") + ''
-                  substituteInPlace $out/share/wayland-sessions/driftwm.desktop \
-                    --replace-fail 'Exec=driftwm-session' 'Exec=driftwm'
-                '';
-              }))
+              inputs.driftwm.packages.${pkgs.stdenv.hostPlatform.system}.default
             ];
             services.gvfs.enable = true;
             services.gnome.glib-networking.enable = true;
@@ -837,7 +832,7 @@
 
                     home.username = "noname";
                     home.homeDirectory = "/home/noname";
-                    home.stateVersion = "25.11";
+                    home.stateVersion = "26.05";
                     home.enableNixpkgsReleaseCheck = false;
                     home.packages = with pkgs; [
                       wechat
@@ -1035,13 +1030,6 @@
                             { run = "handlr reveal \"$@\""; desc = "Reveal"; for = "linux"; orphan = true; }
                           ];
                         };
-                      };
-                      theme.icon = {
-                        globs = [ ];
-                        dirs = [ ];
-                        files = [ ];
-                        exts = [ ];
-                        conds = [ ];
                       };
                     };
                     programs.zoxide = {

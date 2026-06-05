@@ -16,7 +16,7 @@ query="$*"
 case "$cmd" in
   pkg) url="https://search.nixos.org/packages?query=" ;;
   opt) url="https://search.nixos.org/options?query=" ;;
-  hm)  url="https://home-manager-options.extranix.com/?release=release-25.11&query=" ;;
+  hm)  url="https://home-manager-options.extranix.com/?release=release-26.05&query=" ;;
   sty) url="https://nix-community.github.io/stylix/configuration.html?search=" ;;
   mn)  url="https://mynixos.com/search?q=" ;;
   *)
