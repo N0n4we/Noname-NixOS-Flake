@@ -286,6 +286,43 @@
             };
 
             programs.nix-ld.enable = true;
+            programs.nix-ld.libraries = with pkgs; [
+              alsa-lib
+              at-spi2-atk
+              cairo
+              cups
+              dbus
+              expat
+              gdk-pixbuf
+              glib
+              gtk3
+              gtk4
+              nss
+              nspr
+              xorg.libX11
+              xorg.libxcb
+              xorg.libXcomposite
+              xorg.libXdamage
+              xorg.libXext
+              xorg.libXfixes
+              xorg.libXrandr
+              libxkbfile
+              pango
+              pciutils
+              stdenv.cc.cc
+              systemd
+              libnotify
+              pipewire
+              libsecret
+              libpulseaudio
+              speechd-minimal
+              libdrm
+              libgbm
+              libxkbcommon
+              libxshmfence
+              libGL
+              vulkan-loader
+            ];
             programs.mtr.enable = true;
             programs.dconf.enable = true;
             programs.appimage.enable = true;
