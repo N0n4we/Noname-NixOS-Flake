@@ -242,6 +242,9 @@
               k9s
               kubectl
               kubernetes-helm
+              tenv
+              infracost
+              ansible
               wirelesstools
               networkmanager
               networkmanagerapplet
