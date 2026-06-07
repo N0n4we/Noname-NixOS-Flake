@@ -21,7 +21,7 @@ set smartcase
 set shortmess+=I
 set laststatus=0
 
-autocmd VimEnter * call getreg('+')
+autocmd VimEnter * call setreg('+', getreg('+'))
 autocmd BufWritePre * %s/\s\+$//e
 autocmd BufWritePre * %s/\n\+\%$//e
 
