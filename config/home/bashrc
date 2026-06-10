@@ -22,6 +22,12 @@ alias j2z='trans -4 -s ja -t zh'
 alias j2e='trans -4 -s ja -t en'
 alias bash-fork='alacritty msg create-window --working-directory $(pwd) -e bash'
 alias d='jj diff'
+alias c='jj commit'
+alias s='jj squash'
+alias p='jj git push'
+alias pm='jj b s main -r @- && jj git push -r @-'
+alias pd='jj b s develop -r @- && jj git push -r @-'
+alias j='jj'
 
 function y() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd

@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-set -euo pipefail
-
-jj b s main -r @-
-jj git push -r @-
