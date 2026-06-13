@@ -883,6 +883,7 @@
                       glow
                       vivify
                       obsidian
+                      pragtical
                       wev
                       termdown
                       aichat
