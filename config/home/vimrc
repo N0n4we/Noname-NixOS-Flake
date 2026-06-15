@@ -1,12 +1,15 @@
 let mapleader = " "
-set clipboard^=unnamedplus
+if has('unnamedplus')
+  set clipboard=unnamedplus
+elseif has('clipboard')
+  set clipboard=unnamed
+endif
 set nocompatible
 syntax on
 filetype plugin indent on
 
 set nonumber
 set norelativenumber
-set clipboard=unnamedplus
 set wrap
 set linebreak
 set expandtab
