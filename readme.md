@@ -1,3 +1,7 @@
+> [!NOTE]
+> Deprecated
+> use macos now :(
+
 # Noname's NixOS Flake
 
 ## Usage
